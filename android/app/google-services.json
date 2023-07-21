@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "131438027933",
+    "project_id": "build-a-car-a0507",
+    "storage_bucket": "build-a-car-a0507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131438027933:android:10435de8249ddc1280a074",
+        "android_client_info": {
+          "package_name": "com.example.buildacar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131438027933-m5v0p9m65422q42bhlogrm7s8nmmd20n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo_xYIDmmLUCBSXoS76S5-J5AUpxlXegM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131438027933-m5v0p9m65422q42bhlogrm7s8nmmd20n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
