@@ -45,18 +45,28 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> appCars = [
       // Car tab
       VehicleTab(
-        iconPath: 'lib/Build-A-Car_pictures/Vehicles_BAC/Chevy_Cobalt_CAR.png',
-      )
+        iconPath: 'lib/Build-A-Car_pictures/TabCar.png'
+      ),
 
       // Truck tab
+      VehicleTab(
+          iconPath: 'lib/Build-A-Car_pictures/TabTruck.png'
+      ),
 
       // SUV tab
+      VehicleTab(
+          iconPath: 'lib/Build-A-Car_pictures/TabSUV.png'
+      ),
 
       // Van tab
+      VehicleTab(
+          iconPath: 'lib/Build-A-Car_pictures/TabVan.png'
+      ),
 
       // Sport car tab
-
-
+      VehicleTab(
+          iconPath: 'lib/Build-A-Car_pictures/TabSport.png'
+      ),
     ];
 
 
