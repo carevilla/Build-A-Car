@@ -1,5 +1,3 @@
-
-
 import 'package:buildacar/appDisplay/login_widgets.dart';
 import 'package:buildacar/appDisplay/user_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +9,6 @@ import 'main.dart';
 class Account extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _Account();
-
 }
 
 class _Account extends State<Account>{
