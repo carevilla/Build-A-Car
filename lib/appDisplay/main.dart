@@ -1,9 +1,15 @@
 import 'package:buildacar/appDisplay/account.dart';
 import 'package:buildacar/appDisplay/user_list.dart';
+import 'package:buildacar/carTabs/sportcar_tab.dart';
+import 'package:buildacar/carTabs/suv_tab.dart';
 import 'package:buildacar/utilsTab/vehicle_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:buildacar/firebase_options.dart';
+
+import '../carTabs/car_tab.dart';
+import '../carTabs/truck_tab.dart';
+import '../carTabs/van_tab.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,14 +22,14 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        useMaterial3: true,
+        primarySwatch: Colors.pink,
+        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        //useMaterial3: true,
       ),
       home: const MyHomePage(),
     );
@@ -42,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // List of Cars for home page
-    List<Widget> appCars = [
+    List<Widget> appCars = const [
       // Car tab
       VehicleTab(
         iconPath: 'lib/Build-A-Car_pictures/TabCar.png'
@@ -68,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
           iconPath: 'lib/Build-A-Car_pictures/TabSport.png'
       ),
     ];
-
 
     return DefaultTabController(
       length: appCars.length,
@@ -127,11 +132,32 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 24),
 
-
             //Tab Bar
-            TabBar(tabs: appCars),
+            TabBar(
+                tabs: appCars
+            ),
 
             //Tab Bar View
+            Expanded(
+              child: TabBarView(
+                children: [
+                  // Simple car Page
+                  CarTab(),
+
+                  // Truck Page
+                  TruckTab(),
+
+                  // SUV Page
+                  SUVTab(),
+
+                  // Van Page
+                  VanTab(),
+
+                  // Sport Car Page
+                  SportTab()
+                ],
+              ) ,
+            )
           ],
         )
 
