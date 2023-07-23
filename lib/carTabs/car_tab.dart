@@ -19,7 +19,7 @@ class CarTab extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 1 / 1.25
+          childAspectRatio: 1 / 1.3
         ),
         itemBuilder: (context , index) {
           return CarTile(

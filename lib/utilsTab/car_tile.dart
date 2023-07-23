@@ -55,7 +55,12 @@ class CarTile extends StatelessWidget {
             // car picture
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
-              child: Image.asset(carImage),
+              child: Image.asset(
+                carImage,
+                height: 100,
+                width: 150,
+                fit: BoxFit.fitWidth,
+              ),
             ),
             // car make/model
             Text(
