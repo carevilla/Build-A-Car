@@ -102,16 +102,32 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.grey[800],
-                  size: 36,
-                ),
-                onPressed: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Build()));
-                },
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.grey[800],
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Account()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.car_crash_outlined,
+                      color: Colors.black,
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Build()));
+                    },
+                  ),
+
+                ],
               )
             )
           ],
