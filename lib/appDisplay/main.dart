@@ -10,6 +10,7 @@ import '../carTabs/car_tab.dart';
 import '../carTabs/truck_tab.dart';
 import '../carTabs/van_tab.dart';
 import 'accountPage/utils.dart';
+import 'buildACar/vect.dart';
 
 
 Future<void> main() async {
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Account()));
+                      MaterialPageRoute(builder: (context) => Build()));
                 },
               )
             )
