@@ -1,4 +1,4 @@
-import 'package:buildacar/appDisplay/account.dart';
+import 'package:buildacar/appDisplay/accountPage/account.dart';
 import 'package:buildacar/appDisplay/user_list.dart';
 import 'package:buildacar/carTabs/sportcar_tab.dart';
 import 'package:buildacar/carTabs/suv_tab.dart';
@@ -6,10 +6,11 @@ import 'package:buildacar/utilsTab/vehicle_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:buildacar/firebase_options.dart';
-
 import '../carTabs/car_tab.dart';
 import '../carTabs/truck_tab.dart';
 import '../carTabs/van_tab.dart';
+import 'accountPage/utils.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: UtilsAccount.messengerKey,
       navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.pink,
@@ -106,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: 36,
                 ),
                 onPressed: (){
-                  //-- Open User Login options
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Account()));
                 },
               )
             )

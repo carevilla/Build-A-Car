@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'account.dart';
+import 'accountPage/account.dart';
 import 'main.dart';
 
 class ListPage extends StatefulWidget {

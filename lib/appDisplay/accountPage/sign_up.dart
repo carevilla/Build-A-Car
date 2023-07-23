@@ -1,16 +1,28 @@
+
+import 'package:buildacar/appDisplay/accountPage/utils.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 
-import 'main.dart';
+class SignUpW extends StatefulWidget{
 
-class LoginW extends StatefulWidget {
+  final Function() onClickedSignUp;
+
+  const SignUpW({
+    Key? key,
+    required this.onClickedSignUp,
+  }) : super(key : key);
+
   @override
-  State<StatefulWidget> createState() => _LoginW();
+  State<SignUpW> createState() => _SignUpW();
 
 }
 
-class _LoginW extends State<LoginW> {
+class _SignUpW extends State<SignUpW> {
+
 
   final LoginData _loginData = LoginData();                           // creates an object of the Log in Class
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();       // a formkey that is used to save the submitted data of the user.
@@ -32,17 +44,17 @@ class _LoginW extends State<LoginW> {
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(                                        // creates the blank space where the user can write into
               controller: emailController,
               cursorColor: Colors.black,
               keyboardType: TextInputType.emailAddress,           // It also calls a validator to make user that the username is greater than 0
-              validator: (String? inValue){
-                if(inValue?.length == 0){
-                  return "Please enter username";
-                }
-                return null;
-              },
+              validator: (email) =>
+                email != null && !EmailValidator.validate(email)
+                ? ("Enter Valid Email")
+                : null,
               onSaved: (String? inValue){                        // saves the submitted value from the user
                 this._loginData.username = inValue!;
               },
@@ -56,7 +68,7 @@ class _LoginW extends State<LoginW> {
               cursorColor: Colors.black,
               obscureText: true,
               validator: (String? inValue) {                     // It also calls a validator to make user that the password is greater than 4
-                if(inValue!.length < 4) {
+                if(inValue!.length < 6) {
                   return "Password must be >= 4 in length";
                 }
                 return null;
@@ -75,12 +87,26 @@ class _LoginW extends State<LoginW> {
                 onPressed: () async {
                   if(_formKey.currentState!.validate()) {                             // makes sure that text type is validated to the standards asked.
                     _formKey.currentState?.save();                                    // saves inputted values of user into the Log In class
-                    signIn();
+                    signUp();
                   }
                 },
-                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.lightBlueAccent)),
-                child: const Text("Log In!", style: TextStyle(fontSize: 18, color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.blue.shade800)),
+                child: const Text("Sign Up!", style: TextStyle(fontSize: 18, color: Colors.white),),
               ),
+            ),
+            Divider(height: 30, color: Colors.white,),
+            RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.black, fontSize: 15),
+                    text: 'Have an Account?   ',
+                    children: [
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
+                        text: 'Sign In!',
+                        style: TextStyle(color: Colors.orange, decoration: TextDecoration.underline, fontWeight: FontWeight.bold),
+                      ),
+                    ]
+                )
             ),
           ],
         ),
@@ -90,7 +116,7 @@ class _LoginW extends State<LoginW> {
 
   }
 
-  Future signIn() async {
+  Future signUp() async {
 
     showDialog(
         context: this.context,
@@ -99,19 +125,19 @@ class _LoginW extends State<LoginW> {
     );
 
     try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
+
+      UtilsAccount.showSnackBar(e.message);
     }
 
     navigatorKey.currentState!.popUntil((route)=> route.isFirst);
   }
 
-
 }
-
 
 class LoginData {                                             // Log in Class that contains username and password
   String username = "";
@@ -120,47 +146,3 @@ class LoginData {                                             // Log in Class th
   String get getUsername => username;
   String get getPassword => password;
 }
-
-
-
-
-
-
-
-class LoggedInW extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _LoggedInW();
-
-}
-
-class _LoggedInW extends State<LoggedInW> {
-
-  final user = FirebaseAuth.instance.currentUser!;
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Center(
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.account_circle_sharp, size: 175,),
-            Text("Signed in as:", style: TextStyle(fontSize: 16),),
-            Text(user.email!, style: TextStyle(fontSize: 14),),
-            SizedBox(height: 25,),
-            ElevatedButton.icon(
-              icon: Icon(Icons.arrow_back),
-              label: Text("Log Out"),
-              onPressed: () => FirebaseAuth.instance.signOut(),),
-          ],
-        ),
-      ),
-    );
-  }
-
-}
-
-
-
