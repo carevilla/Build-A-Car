@@ -7,9 +7,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
+
+/*
+This class shows the Sign Up page, verifies that user set a correct email and
+password length, and signs user once they have created the account.
+ */
+
+
 class SignUpW extends StatefulWidget{
 
-  final Function() onClickedSignUp;
+  final Function() onClickedSignUp;   // this var is used to make sure if the user was sign up and can be shown to homepage.
 
   const SignUpW({
     Key? key,
@@ -31,7 +38,7 @@ class _SignUpW extends State<SignUpW> {
 
 
   @override
-  void dispose(){
+  void dispose(){                               // disposes of the type text from the user after usage
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -39,99 +46,102 @@ class _SignUpW extends State<SignUpW> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(50.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextFormField(                                        // creates the blank space where the user can write into
-              controller: emailController,
-              cursorColor: Colors.black,
-              keyboardType: TextInputType.emailAddress,           // It also calls a validator to make user that the username is greater than 0
-              validator: (email) =>
-                email != null && !EmailValidator.validate(email)
-                ? ("Enter Valid Email")
-                : null,
-              onSaved: (String? inValue){                        // saves the submitted value from the user
-                this._loginData.username = inValue!;
-              },
-              decoration: const InputDecoration(                 // hints the user of what the field is asking for
-                hintText: "none@none.com",
-                labelText: "Username (eMail address)",
-              ),
+    return WillPopScope(                     // makes sure this pops and back button does not cause problems
+        onWillPop: () async => false,
+        child: Container(
+          padding: EdgeInsets.all(50.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(                                        // creates the blank space where the user can write into
+                  controller: emailController,
+                  cursorColor: Colors.black,
+                  keyboardType: TextInputType.emailAddress,           // It also calls a validator to make user that the username is greater than 0
+                  validator: (email) =>
+                  email != null && !EmailValidator.validate(email)
+                      ? ("Enter Valid Email")
+                      : null,
+                  onSaved: (String? inValue){                        // saves the submitted value from the user
+                    this._loginData.username = inValue!;
+                  },
+                  decoration: const InputDecoration(                 // hints the user of what the field is asking for
+                    hintText: "none@none.com",
+                    labelText: "Username (eMail address)",
+                  ),
+                ),
+                TextFormField(                                       // creates the blank space where the user can write into
+                  controller: passwordController,
+                  cursorColor: Colors.black,
+                  obscureText: true,
+                  validator: (String? inValue) {                     // It also calls a validator to make user that the password is greater than 4
+                    if(inValue!.length < 6) {
+                      return "Password must be >= 4 in length";
+                    }
+                    return null;
+                  },
+                  onSaved: (String? inValue) {                      // saves the submitted value from the user
+                    this._loginData.password = inValue!;
+                  },
+                  decoration: const InputDecoration(                // hints the user of what the field is asking for
+                    hintText: "Password",
+                    labelText: "Password",
+                  ),
+                ),
+                const SizedBox(height: 30,),                        // empty box to divide the textfields and the button
+                ConstrainedBox(constraints: const BoxConstraints(minHeight: 30),
+                  child: ElevatedButton(                                                  // submit button
+                    onPressed: () async {
+                      if(_formKey.currentState!.validate()) {                             // makes sure that text type is validated to the standards asked.
+                        _formKey.currentState?.save();                                    // saves inputted values of user into the Log In class
+                        signUp();
+                      }
+                    },
+                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.blue.shade800)),
+                    child: const Text("Sign Up!", style: TextStyle(fontSize: 18, color: Colors.white),),
+                  ),
+                ),
+                Divider(height: 30, color: Colors.white,),
+                RichText(                                                                 // This Shows a text button that leads user back to the sign in page.
+                    text: TextSpan(
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        text: 'Have an Account?   ',
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
+                            text: 'Sign In!',
+                            style: TextStyle(color: Colors.orange, decoration: TextDecoration.underline, fontWeight: FontWeight.bold),
+                          ),
+                        ]
+                    )
+                ),
+              ],
             ),
-            TextFormField(                                       // creates the blank space where the user can write into
-              controller: passwordController,
-              cursorColor: Colors.black,
-              obscureText: true,
-              validator: (String? inValue) {                     // It also calls a validator to make user that the password is greater than 4
-                if(inValue!.length < 6) {
-                  return "Password must be >= 4 in length";
-                }
-                return null;
-              },
-              onSaved: (String? inValue) {                      // saves the submitted value from the user
-                this._loginData.password = inValue!;
-              },
-              decoration: const InputDecoration(                // hints the user of what the field is asking for
-                hintText: "Password",
-                labelText: "Password",
-              ),
-            ),
-            const SizedBox(height: 30,),                        // empty box to divide the textfields and the button
-            ConstrainedBox(constraints: const BoxConstraints(minHeight: 30),
-              child: ElevatedButton(                                                  // submit button
-                onPressed: () async {
-                  if(_formKey.currentState!.validate()) {                             // makes sure that text type is validated to the standards asked.
-                    _formKey.currentState?.save();                                    // saves inputted values of user into the Log In class
-                    signUp();
-                  }
-                },
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.blue.shade800)),
-                child: const Text("Sign Up!", style: TextStyle(fontSize: 18, color: Colors.white),),
-              ),
-            ),
-            Divider(height: 30, color: Colors.white,),
-            RichText(
-                text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 15),
-                    text: 'Have an Account?   ',
-                    children: [
-                      TextSpan(
-                        recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
-                        text: 'Sign In!',
-                        style: TextStyle(color: Colors.orange, decoration: TextDecoration.underline, fontWeight: FontWeight.bold),
-                      ),
-                    ]
-                )
-            ),
-          ],
-        ),
-      ),
+          ),
+        )
     );
+
 
 
   }
 
-  Future signUp() async {
+  Future signUp() async {                                                       // method takes charge of creating user account in the Firabase
 
     showDialog(
         context: this.context,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator(color: Colors.lightBlue,),)
+        builder: (context) => Center(child: CircularProgressIndicator(color: Colors.lightBlue,),)     // shows indicator after sgn up.
     );
 
     try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(           // creates user account
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
-
-      UtilsAccount.showSnackBar(e.message);
+      UtilsAccount.showSnackBar(e.message);             //displays error
     }
 
     navigatorKey.currentState!.popUntil((route)=> route.isFirst);

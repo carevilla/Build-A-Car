@@ -1,12 +1,13 @@
 
 import 'package:buildacar/appDisplay/accountPage/login_widgets.dart';
-import 'package:buildacar/appDisplay/user_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'logAuth.dart';
-import '../main.dart';
+
+/*
+Class takes care of the account page. This includes the signIn, SignOut pages.
+ */
 
 class Account extends StatefulWidget{
   @override
@@ -26,10 +27,10 @@ class _Account extends State<Account>{
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if(snapshot.hasData){
+          if(snapshot.hasData){                // user is already signed In displays sign out page
             return LoggedInW();
           } else {
-            return LogAuth();
+            return LogAuth();                  // shows sign in page that includes sign up and forgot password
           }
 
         }
