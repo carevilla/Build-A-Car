@@ -10,6 +10,7 @@ import '../carTabs/car_tab.dart';
 import '../carTabs/truck_tab.dart';
 import '../carTabs/van_tab.dart';
 import 'accountPage/utils.dart';
+import 'buildACar/vect.dart';
 
 
 Future<void> main() async {
@@ -101,16 +102,32 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.grey[800],
-                  size: 36,
-                ),
-                onPressed: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Account()));
-                },
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.grey[800],
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Account()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.car_crash_outlined,
+                      color: Colors.black,
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Build()));
+                    },
+                  ),
+
+                ],
               )
             )
           ],
