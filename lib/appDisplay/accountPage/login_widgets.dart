@@ -1,12 +1,23 @@
+import 'package:buildacar/appDisplay/accountPage/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import '../main.dart';
+import 'forgot_password.dart';
+
+
+/*
+
+This class takes care of loggin in a user by the Firebase Authorization, provides a way for user to sign up
+and forget password.
+
+Source: https://www.youtube.com/watch?v=4vKiJZNPhss
+
+ */
 
 class LoginW extends StatefulWidget {
-  final VoidCallback onClickedSignIn;
+  final VoidCallback onClickedSignIn;                         // shows sign up page or sign in page
 
   const LoginW ({
     Key? key,
@@ -28,7 +39,7 @@ class _LoginW extends State<LoginW> {
 
 
   @override
-  void dispose(){
+  void dispose(){                                                 // disposes of typed text of the user after usage
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -93,7 +104,21 @@ class _LoginW extends State<LoginW> {
               ),
             ),
             Divider(height: 30, color: Colors.white,),
-            RichText(
+            GestureDetector(                                                          // test for forgot password that send user to forgot password page
+              child: Text(
+                'Forgot Password?',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Colors.indigo,
+                  fontSize: 17,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+              },
+            ),
+            Divider(height: 30, color: Colors.white,),
+            RichText(                                                                     // text that takes user to sign up page
                 text: TextSpan(
                   style: TextStyle(color: Colors.black, fontSize: 15),
                   text: 'No Account?   ',
@@ -114,20 +139,22 @@ class _LoginW extends State<LoginW> {
 
   }
 
-  Future signIn() async {
+  Future signIn() async {                                         // sign in method that checks if user is in Firebase
 
-    showDialog(
+    showDialog(                                                   // shows loading indicator if user exist
         context: this.context,
         barrierDismissible: false,
         builder: (context) => Center(child: CircularProgressIndicator(color: Colors.lightBlue,),)
     );
 
     try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(                 // sign in with Firebase
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
+
+      UtilsAccount.showSnackBar(e.message);                                  // displays error message
     }
 
     navigatorKey.currentState!.popUntil((route)=> route.isFirst);
@@ -151,7 +178,7 @@ class LoginData {                                             // Log in Class th
 
 
 
-class LoggedInW extends StatefulWidget {
+class LoggedInW extends StatefulWidget {                           // class displays logged in Page, where the user can log out
   @override
   State<StatefulWidget> createState() => _LoggedInW();
 
@@ -159,7 +186,7 @@ class LoggedInW extends StatefulWidget {
 
 class _LoggedInW extends State<LoggedInW> {
 
-  final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser!;                        // has current user information
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +201,7 @@ class _LoggedInW extends State<LoggedInW> {
             Text("Signed in as:", style: TextStyle(fontSize: 16),),
             Text(user.email!, style: TextStyle(fontSize: 14),),
             SizedBox(height: 25,),
-            ElevatedButton.icon(
+            ElevatedButton.icon(                                                 // sign out user from the app
               icon: Icon(Icons.arrow_back),
               label: Text("Log Out"),
               onPressed: () => FirebaseAuth.instance.signOut(),),
