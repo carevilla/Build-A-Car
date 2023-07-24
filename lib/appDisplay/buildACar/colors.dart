@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-/*
-File stores variables required on app
+/**
+Class stores the map of colors shown to the user to change the color of the cars svg.
  */
 
 /// A Custom Slider that returns SVG colors and shades.
@@ -40,7 +40,7 @@ class SVGColorSlider extends StatelessWidget {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        ..._colorMap.entries.map((MapEntry<String, Color> mapEntry) {
+        ..._colorMap.entries.map((MapEntry<String, Color> mapEntry) {           ///shows list of colors
           return InkWell(
             onTap: () => onColorSelected(mapEntry.key),
             child: Container(
@@ -54,7 +54,7 @@ class SVGColorSlider extends StatelessWidget {
                 child: Center(
                     child:
 
-                    /// Change The Font To Black For These Colors
+                    /// Change The Font To Black For These Colors               /// displays the name of the color
                     mapEntry.key.contains('White') ||
                         mapEntry.key.contains('Beige') ||
                         mapEntry.key.contains('Yellow')
