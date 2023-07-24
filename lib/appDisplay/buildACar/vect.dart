@@ -26,6 +26,7 @@ class _Build extends State<Build> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Build Your Own Car"),
+        backgroundColor: Colors.lightBlue,
       ),
       body: SafeArea(
           child: Column(children: [
@@ -38,9 +39,14 @@ class _Build extends State<Build> {
                           ? colorCode.split('.')[1].split(':')[1]
                           : '#3f5765')
               ),
-              Expanded(
-                  child: SVGColorSlider(
-                    onColorSelected: (color) => setState(() => colorCode = color),
+              Text("Choose your color: ",
+                style: TextStyle(fontWeight: FontWeight.bold, ),),
+              Flexible(
+                  child: SizedBox(
+                    height: 80,
+                    child: SVGColorSlider(
+                      onColorSelected: (color) => setState(() => colorCode = color),
+                    ),
                   )
               ),
             ])
