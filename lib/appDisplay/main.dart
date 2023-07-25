@@ -1,4 +1,5 @@
 import 'package:buildacar/appDisplay/accountPage/account.dart';
+import 'package:buildacar/appDisplay/buildACar/choose_model.dart';
 import 'package:buildacar/appDisplay/user_list.dart';
 import 'package:buildacar/carTabs/sportcar_tab.dart';
 import 'package:buildacar/carTabs/suv_tab.dart';
@@ -10,7 +11,7 @@ import '../carTabs/car_tab.dart';
 import '../carTabs/truck_tab.dart';
 import '../carTabs/van_tab.dart';
 import 'accountPage/utils.dart';
-import 'buildACar/vect.dart';
+import 'buildACar/build.dart';
 
 
 Future<void> main() async {
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Build()));
+                          MaterialPageRoute(builder: (context) => ChooseModel()));
                     },
                   ),
 
