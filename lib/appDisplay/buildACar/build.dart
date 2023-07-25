@@ -14,8 +14,9 @@ import 'colors.dart';
 class Build extends StatefulWidget{
 
   String model ='';
+  User user = User();                                                           /// a user class is created
 
-  Build(String m){
+  Build(String m){                                                              /// receives model chosen by user
     model = m;
   }
 
@@ -23,14 +24,16 @@ class Build extends StatefulWidget{
   State<Build> createState() => _Build();
 }
 
+
+
 class _Build extends State<Build> {
 
 
   String colorCode = '';
-  int showYearS = 0000;
+  int showYearS = DateTime.now().year;
 
   @override
-  selectedYear(int y){
+  selectedYear(int y){                                                          /// updates button to show the selected year
     setState(() {
       showYearS = y;
     });
@@ -39,8 +42,8 @@ class _Build extends State<Build> {
   @override
   Widget build(BuildContext context) {
 
-    User user = User();
-    DateTime selectedDate;
+    final DateTime selectedDate = widget.user.getDate;
+    selectedYear(widget.user.getYear);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,17 +51,17 @@ class _Build extends State<Build> {
         backgroundColor: Colors.lightBlue,
       ),
       body: SafeArea(
-          child: ListView(
+          child: ListView(                                                      /// creates the page scrollable
             padding: EdgeInsets.all(15),
             children: [
-                Container(
+                Container(                                                      /// shows svg of chosen model
                   height: 130,
                   width: 150,
                   child: modelPaint()
                 ),
                 Text("Choose your color: ",
-                  style: TextStyle(fontWeight: FontWeight.bold, ),),
-                Container(
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                Container(                                                               /// shows colors that the user can select
                     child: SizedBox(
                       height: 80,
                       child: SVGColorSlider(
@@ -66,20 +69,32 @@ class _Build extends State<Build> {
                       ),
                     )
                 ),
-              Row(
+              Divider(height: 5, color: Colors.grey,),
+              Row(                                                                       /// row shows text and button to pick year wanted
+                children: [
+                  Text("Choose year: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${showYearS}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              Divider(height: 5, color: Colors.grey,),
+              Row(                                                              /// Row chose text and button to choose model
                 children: [
                   Text("Choose model: ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      onPressed: (){
-                        pickYear(user);
-                        selectedYear(user.getYear);
-                        print("YEAR: ${user.getYear}");
-                      }, child: Text('$showYearS')),
+
                 ],
               ),
-              Text("Choose year: ",
-                style: TextStyle(fontWeight: FontWeight.bold, ),),
               Text("Choose : ",
                 style: TextStyle(fontWeight: FontWeight.bold, ),),
               ]),
@@ -88,33 +103,27 @@ class _Build extends State<Build> {
   }
 
 
-  void pickYear(User user){
-
-    DateTime selectedDate = DateTime.now();
-
-    showDialog(
+  void pickYear(User user, DateTime selectedDate){                              /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
+                                                                                /// We used the source above to learn how to only select year and make the year scrollable.
+    showDialog(                                                                 /// Some changes where made such as size, the years provided, and we added the code to update user's selection
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Select Year"),
           content: Container( // Need to use container to add size constraint.
-            width: 300,
-            height: 300,
-            child: YearPicker(
+            width: 200,
+            height: 200,
+            child: YearPicker(                                                  /// This creates a lis of years starting from 2023 (Now) to 100 years back
               firstDate: DateTime(DateTime.now().year - 100, 1),
-              lastDate: DateTime(DateTime.now().year + 100, 1),
+              lastDate: DateTime(DateTime.now().year, 1),
               initialDate: DateTime.now(),
-              // save the selected date to _selectedDate DateTime variable.
-              // It's used to set the previous selected date when
-              // re-showing the dialog.
               selectedDate: selectedDate,
               onChanged: (DateTime dateTime) {
                 // close the dialog when year is selected.
-                user.setYear = dateTime.year;
-                Navigator.pop(context);
-
-                // Do something with the dateTime selected.
-                // Remember that you need to use dateTime.year to get the year
+                user.setYear = dateTime.year;                                   /// user choices are saved into the user class
+                user.setDate = dateTime;
+                selectedYear(widget.user.getYear);
+                Navigator.pop(context);                                         /// Alert Dialog is removed
               },
             ),
           ),
@@ -123,9 +132,9 @@ class _Build extends State<Build> {
     );
   }
 
-  Widget modelPaint () {
+  Widget modelPaint () {                                                        /// Method checks what model of car the user selected and shows the correct svg widget.
 
-    if(widget.model == 'car') {
+    if(widget.model == 'car') {                                                 /// shows car svg
       return PainterCar(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -134,7 +143,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if (widget.model == 'sport') {
+    } else if (widget.model == 'sport') {                                       /// shows sport car svg
       return PainterSport(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -143,7 +152,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'suv'){
+    } else if(widget.model == 'suv'){                                           /// shows suv svg
       return PainterSUV(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -152,7 +161,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'truck'){
+    } else if(widget.model == 'truck'){                                         /// shows truck svg
       return PainterTruck(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -161,7 +170,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'van'){
+    } else if(widget.model == 'van'){                                           /// shows van svg
       return PainterVan(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -171,7 +180,7 @@ class _Build extends State<Build> {
             : '#FFF35A',
       );
     } else {
-      return Text('Not Available');
+      return Text('Not Available');                                             /// shows error message
     }
   }
 }
