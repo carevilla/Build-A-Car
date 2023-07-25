@@ -53,13 +53,15 @@ class VanTile extends StatelessWidget {
               ],
             ),
             // car picture
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
-              child: Image.asset(
-                vanImage,
-                height: 100,
-                width: 150,
-                fit: BoxFit.fitWidth,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
+                child: Image.asset(
+                  vanImage,
+                  height: 100,
+                  width: 150,
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ),
             // car make/model
