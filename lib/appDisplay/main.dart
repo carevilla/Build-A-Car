@@ -56,22 +56,18 @@ class _MyHomePageState extends State<MyHomePage> {
       VehicleTab(
         iconPath: 'lib/Build-A-Car_pictures/TabCar.png'
       ),
-
       // Truck tab
       VehicleTab(
           iconPath: 'lib/Build-A-Car_pictures/TabTruck.png'
       ),
-
       // SUV tab
       VehicleTab(
           iconPath: 'lib/Build-A-Car_pictures/TabSUV.png'
       ),
-
       // Van tab
       VehicleTab(
           iconPath: 'lib/Build-A-Car_pictures/TabVan.png'
       ),
-
       // Sport car tab
       VehicleTab(
           iconPath: 'lib/Build-A-Car_pictures/TabSport.png'
@@ -116,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                   IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.car_crash_outlined,
                       color: Colors.black,
                       size: 36,
@@ -135,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           children: [
             // Text Welcome to Build-A-Car
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 36.0 , vertical: 18),
               child: Row(
                 children: [
@@ -180,43 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         )
-
-
-      /*
-      bottomNavigationBar: Container(
-        color: Colors.lightBlue,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-                icon: const Icon(Icons.home, color: Colors.white, size: 30,),
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ListPage()));
-                },
-                icon: const Icon(Icons.format_list_bulleted, color: Colors.white, size: 30,)),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Account()));
-                },
-                icon: const Icon(Icons.account_circle_rounded, color: Colors.white, size: 30))
-          ],
-        ),
-      ),
-
-      */
-
-
       ),
     );
   }
