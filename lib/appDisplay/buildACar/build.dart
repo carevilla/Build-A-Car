@@ -1,6 +1,7 @@
 
 
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
+import 'package:buildacar/appDisplay/buildACar/search_results.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,27 +53,27 @@ class _Build extends State<Build> {
       ),
       body: SafeArea(
           child: ListView(                                                      /// creates the page scrollable
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             children: [
-                Container(                                                      /// shows svg of chosen model
+              Container(                                                      /// shows svg of chosen model
                   height: 130,
                   width: 150,
                   child: modelPaint()
                 ),
-                Text("Choose your color: ",
+              const Text("Choose your color: ",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                Container(                                                               /// shows colors that the user can select
+              Container(                                                               /// shows colors that the user can select
                     child: SizedBox(
                       height: 80,
                       child: SVGColorSlider(
                         onColorSelected: (color) => setState(() => colorCode = color),
                       ),
                     )
-                ),
-              Divider(height: 5, color: Colors.grey,),
+              ),
+              const Divider(height: 5, color: Colors.grey,),
               Row(                                                                       /// row shows text and button to pick year wanted
                 children: [
-                  Text("Choose year: ",
+                  const Text("Choose year: ",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
@@ -87,17 +88,111 @@ class _Build extends State<Build> {
                       )),
                 ],
               ),
-              Divider(height: 5, color: Colors.grey,),
+              const Divider(height: 5, color: Colors.grey,),
               Row(                                                              /// Row chose text and button to choose model
                 children: [
-                  Text("Choose model: ",
+                  const Text("Choose Make: ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${widget.user.getMake}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
 
                 ],
               ),
-              Text("Choose : ",
-                style: TextStyle(fontWeight: FontWeight.bold, ),),
-              ]),
+              const Divider(height: 5, color: Colors.grey,),
+              Row(
+                children: [
+                  const Text("Choose Model: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, ),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${widget.user.getModel}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              const Divider(height: 5, color: Colors.grey,),
+              Row(
+                children: [
+                  const Text("Choose number of Doors: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, ),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${widget.user.getDoors}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              const Divider(height: 5, color: Colors.grey,),
+              Row(
+                children: [
+                  const Text("Choose Drive: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, ),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${widget.user.getDrive}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              const Divider(height: 5, color: Colors.grey,),
+              Row(
+                children: [
+                  const Text("Choose Fuel Type: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, ),),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                      onPressed: (){
+                        pickYear(widget.user, selectedDate);
+                      },
+                      child: Row(
+                        children: [
+                          Text('${widget.user.getFuelType}'),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              const Divider(height: 5, color: Colors.grey,),
+              const Divider(height: 20, color: Colors.white,),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ResultsPage()));
+                  },
+                  child: Text('Show Results'),
+                ),
+              )
+
+            ]),
           )
       );
   }
