@@ -1,5 +1,7 @@
 
 
+import 'package:buildacar/serverCalls/car_query_call.dart';
+import 'package:buildacar/serverCalls/erase.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
 import 'package:buildacar/appDisplay/buildACar/search_results.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
@@ -45,6 +47,7 @@ class _Build extends State<Build> {
 
     final DateTime selectedDate = widget.user.getDate;
     selectedYear(widget.user.getYear);
+    randomPrint();
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +80,8 @@ class _Build extends State<Build> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
+                      onPressed: () {
+
                         pickYear(widget.user, selectedDate);
                       },
                       child: Row(
@@ -85,7 +89,8 @@ class _Build extends State<Build> {
                           Text('${showYearS}'),
                           Icon(Icons.arrow_drop_down),
                         ],
-                      )),
+                      )
+                  ),
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
@@ -198,8 +203,9 @@ class _Build extends State<Build> {
   }
 
 
-  void pickYear(User user, DateTime selectedDate){                              /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
-                                                                                /// We used the source above to learn how to only select year and make the year scrollable.
+  void pickYear(User user, DateTime selectedDate,) {                        /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
+
+                                                                                 /// We used the source above to learn how to only select year and make the year scrollable.
     showDialog(                                                                 /// Some changes where made such as size, the years provided, and we added the code to update user's selection
       context: context,
       builder: (BuildContext context) {
