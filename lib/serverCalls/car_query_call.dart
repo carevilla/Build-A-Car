@@ -2,19 +2,13 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
+import 'package:buildacar/appDisplay/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'car.dart';
 import 'car_classes.dart';
 
 /// This file contains methods that call the Car Query Api
-
-List<Car> trucksList = <Car>[];
-List<Car> sportList = <Car>[];
-List<Car> suvList = <Car>[];
-List<Car> vanList = <Car>[];
-List<Car> familyCarList = <Car>[];
 
 Future<List<dynamic>> getAPIYears() async{
 
@@ -54,7 +48,7 @@ void createList() async {
   for(int i = 0; i < 500; i++){
     if(responseTrims[i]['model_body'].contains('Pickup')){
       var randomColor = Random().nextInt(colorList.length);
-      trucksList.add(new Truck(
+      carsListDB.trucksList.add(new Truck(
         colorList[randomColor],
         responseTrims[i]['model_body'],
         responseTrims[i]['model_name'],
@@ -66,7 +60,7 @@ void createList() async {
       ));
     } else if(responseTrims[i]['model_trim'].contains('Coupe')) {
       var randomColor = Random().nextInt(colorList.length);
-      sportList.add(new Sport(
+      carsListDB.sportList.add(new Sport(
           colorList[randomColor],
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
@@ -78,7 +72,7 @@ void createList() async {
       ));
     } else if(responseTrims[i]['model_body'].contains('Compact')) {
       var randomColor = Random().nextInt(colorList.length);
-      familyCarList.add(new FamilyCar(
+      carsListDB.familyCarList.add(new FamilyCar(
           colorList[randomColor],
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
@@ -90,7 +84,7 @@ void createList() async {
       ));
     } else if(responseTrims[i]['model_trim'].contains('SUV')) {
       var randomColor = Random().nextInt(colorList.length);
-      suvList.add(new SUV(
+      carsListDB.suvList.add(new SUV(
           colorList[randomColor],
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
@@ -102,7 +96,7 @@ void createList() async {
       ));
     } else if(responseTrims[i]['model_trim'].contains('Minivan')) {
       var randomColor = Random().nextInt(colorList.length);
-      vanList.add(new Van(
+      carsListDB.vanList.add(new Van(
           colorList[randomColor],
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
@@ -116,11 +110,14 @@ void createList() async {
 
   }
 
+  /*
   print("TRUCKS: ${trucksList.length}");
   print("SPORT: ${sportList.length}");
   print("SUV: ${suvList.length}");
   print("FAM CAR: ${familyCarList.length}");
   print("VAN: ${vanList.length}");
+
+   */
 
 }
 
