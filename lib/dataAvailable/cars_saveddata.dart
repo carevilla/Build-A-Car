@@ -1,7 +1,7 @@
 
 
 import 'package:mobx/mobx.dart';
-import 'car.dart';
+import '../serverCalls/car.dart';
 
 part 'cars_saveddata.g.dart';
 
