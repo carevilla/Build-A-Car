@@ -21,6 +21,10 @@ dependencies:
   flutter_svg: ^2.0.7
   image: ^4.0.17
   month_year_picker: ^0.3.0+1
+  http: ^1.1.0
+
+  mobx: ^2.0.5             # Mobx
+  flutter_mobx: ^2.0.2
 
 
 dev_dependencies:
@@ -28,6 +32,10 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+
+  #Mobx
+  build_runner:
+  mobx_codegen:
 
 flutter:
 
