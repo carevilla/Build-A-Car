@@ -29,8 +29,41 @@ mixin _$CarListDB on CarsListDataBase, Store {
       ActionController(name: 'CarsListDataBase', context: context);
 
   @override
+  List<String> showAvailableYears(String carModel) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showAvailableYears');
+    try {
+      return super.showAvailableYears(carModel);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<String> showMake(String carModel, String yearSelected) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showMake');
+    try {
+      return super.showMake(carModel, yearSelected);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<String> showModels(String carModel) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showModels');
+    try {
+      return super.showModels(carModel);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   List<Car> showResults(String carModel, String color, String make,
-      String model, String fuelType, String drive, int doors, int year) {
+      String model, String fuelType, String drive, String doors, String year) {
     final _$actionInfo = _$CarsListDataBaseActionController.startAction(
         name: 'CarsListDataBase.showResults');
     try {

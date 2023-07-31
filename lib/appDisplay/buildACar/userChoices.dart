@@ -4,14 +4,14 @@
 /// Class will save user's selected options
 /// that the system will look up in the API
 
-class User {
+class UserChoices {
 
   String _carColor = "";
-  int _year = DateTime.now().year;
+  String _year = DateTime.now().year.toString();
   DateTime _dateTime = DateTime.now();
   String _carMake = "Make...";
   String _carModel = "Model...";
-  int _carDoors = 0;
+  String _carDoors = "";
   String _carDrive = "Drive...";
   String _carFuelType = "Fuel Type...";
 
@@ -22,8 +22,8 @@ class User {
     _carColor = c;
   }
 
-  int get getYear => _year;
-  set setYear(int y){
+  String get getYear => _year;
+  set setYear(String y){
     _year = y;
   }
 
@@ -42,8 +42,8 @@ class User {
     _carModel = m;
   }
 
-  int get getDoors => _carDoors;
-  set setDoors(int d){
+  String get getDoors => _carDoors;
+  set setDoors(String d){
     _carDoors = d;
   }
 

@@ -1,7 +1,8 @@
 
 
+import 'package:buildacar/appDisplay/main.dart';
 import 'package:mobx/mobx.dart';
-import 'car.dart';
+import '../serverCalls/car.dart';
 
 part 'cars_saveddata.g.dart';
 
@@ -16,8 +17,104 @@ abstract class CarsListDataBase with Store {
   List<Car> vanList = <Car>[];
   List<Car> familyCarList = <Car>[];
 
+
   @action
-  List<Car> showResults(String carModel, String color, String make, String model, String fuelType, String drive, int doors, int year){
+  List<String> showAvailableYears(String carModel){
+
+    Set<String> tempYears = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        print(familyCar.getYear);
+        tempYears.add(familyCar.getYear);
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        tempYears.add(truck.getYear);
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        tempYears.add(suv.getYear);
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        tempYears.add(van.getYear);
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        tempYears.add(sport.getYear);
+      }
+    }
+
+    return tempYears.toList();
+
+  }
+
+  @action
+  List<String> showMake(String carModel, String yearSelected){
+
+    Set<String> temp = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        temp.add(familyCar.getMake);
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        temp.add(truck.getMake);
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        temp.add(suv.getMake);
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        temp.add(van.getMake);
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        temp.add(sport.getMake);
+      }
+    }
+
+
+    return temp.toList();
+
+  }
+
+  @action
+  List<String> showModels(String carModel){
+
+    Set<String> temp = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        temp.add(familyCar.getModel);
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        temp.add(truck.getModel);
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        temp.add(suv.getModel);
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        temp.add(van.getModel);
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        temp.add(sport.getModel);
+      }
+    }
+
+    return temp.toList();
+
+  }
+
+  @action
+  List<Car> showResults(String carModel, String color, String make, String model, String fuelType, String drive, String doors, String year){
 
     List<Car> results = [];
 

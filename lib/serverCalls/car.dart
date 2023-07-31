@@ -5,8 +5,8 @@ abstract class Car {
   String _carBody = "";
   String _carModel = "";
   String _carMake = "";
-  int _carDoors = 0;
-  int _carYear = 0;
+  String _carDoors = "";
+  String _carYear = "";
   String _carDrive = "";
   String _carFuelType = "";
 
@@ -29,8 +29,8 @@ abstract class Car {
     _carBody = b;
   }
 
-  int get getYear => _carYear;
-  set setYear(int y){
+  String get getYear => _carYear;
+  set setYear(String y){
     _carYear = y;
   }
 
@@ -44,8 +44,8 @@ abstract class Car {
     _carModel = m;
   }
 
-  int get getDoors => _carDoors;
-  set setDoors(int d){
+  String get getDoors => _carDoors;
+  set setDoors(String d){
     _carDoors = d;
   }
 
