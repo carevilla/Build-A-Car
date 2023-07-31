@@ -1,7 +1,7 @@
 
 
+import 'package:buildacar/appDisplay/main.dart';
 import 'package:buildacar/serverCalls/car_query_call.dart';
-import 'package:buildacar/serverCalls/erase.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
 import 'package:buildacar/appDisplay/buildACar/search_results.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
@@ -17,7 +17,7 @@ import 'colors.dart';
 class Build extends StatefulWidget{
 
   String model ='';
-  User user = User();                                                           /// a user class is created
+  UserChoices user = UserChoices();                                             /// a user class is created
 
   Build(String m){                                                              /// receives model chosen by user
     model = m;
@@ -33,10 +33,10 @@ class _Build extends State<Build> {
 
 
   String colorCode = '';
-  int showYearS = DateTime.now().year;
+  String showYearS = DateTime.now().year.toString();
 
   @override
-  selectedYear(int y){                                                          /// updates button to show the selected year
+  selectedYear(String y){                                                          /// updates button to show the selected year
     setState(() {
       showYearS = y;
     });
@@ -47,7 +47,6 @@ class _Build extends State<Build> {
 
     final DateTime selectedDate = widget.user.getDate;
     selectedYear(widget.user.getYear);
-    randomPrint();
 
     return Scaffold(
       appBar: AppBar(
@@ -86,8 +85,7 @@ class _Build extends State<Build> {
                       },
                       child: Row(
                         children: [
-                          Text('${showYearS}'),
-                          Icon(Icons.arrow_drop_down),
+                          dropDown(carsListDB.showAvailableYears(widget.model))
                         ],
                       )
                   ),
@@ -105,8 +103,7 @@ class _Build extends State<Build> {
                       },
                       child: Row(
                         children: [
-                          Text('${widget.user.getMake}'),
-                          Icon(Icons.arrow_drop_down),
+                          dropDown(carsListDB.showMake(widget.model, widget.user.getYear))
                         ],
                       )),
 
@@ -202,8 +199,34 @@ class _Build extends State<Build> {
       );
   }
 
+  @override
+  Widget dropDown(List<dynamic> list) {
+    String dropdownValue = list.first;
+    return DropdownButton<dynamic>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (dynamic? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<dynamic>>((dynamic value) {
+        return DropdownMenuItem<dynamic>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
 
-  void pickYear(User user, DateTime selectedDate,) {                        /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
+  void pickYear(UserChoices user, DateTime selectedDate,) {                        /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
 
                                                                                  /// We used the source above to learn how to only select year and make the year scrollable.
     showDialog(                                                                 /// Some changes where made such as size, the years provided, and we added the code to update user's selection
@@ -221,7 +244,7 @@ class _Build extends State<Build> {
               selectedDate: selectedDate,
               onChanged: (DateTime dateTime) {
                 // close the dialog when year is selected.
-                user.setYear = dateTime.year;                                   /// user choices are saved into the user class
+                user.setYear = dateTime.year.toString();                                   /// user choices are saved into the user class
                 user.setDate = dateTime;
                 selectedYear(widget.user.getYear);
                 Navigator.pop(context);                                         /// Alert Dialog is removed
@@ -235,7 +258,7 @@ class _Build extends State<Build> {
 
   Widget modelPaint () {                                                        /// Method checks what model of car the user selected and shows the correct svg widget.
 
-    if(widget.model == 'car') {                                                 /// shows car svg
+    if(widget.model == 'familyCar') {                                                 /// shows car svg
       return PainterCar(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]

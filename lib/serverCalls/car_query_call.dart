@@ -53,8 +53,8 @@ void createList() async {
         responseTrims[i]['model_body'],
         responseTrims[i]['model_name'],
         responseTrims[i]['model_make_id'],
-        int.parse(responseTrims[i]['model_doors'] ?? "0"),
-        int.parse(responseTrims[i]['model_year'] ?? "0"),
+          (responseTrims[i]['model_doors'] ?? "0") ,
+          (responseTrims[i]['model_year'] ?? "0"),
         responseTrims[i]['model_transmission_type'],
         responseTrims[i]['model_engine_fuel']
       ));
@@ -65,8 +65,8 @@ void createList() async {
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
           responseTrims[i]['model_make_id'],
-          int.parse(responseTrims[i]['model_doors'] ?? "0"),
-          int.parse(responseTrims[i]['model_year'] ?? "0"),
+          (responseTrims[i]['model_doors'] ?? "0") ,
+          (responseTrims[i]['model_year'] ?? "0"),
           responseTrims[i]['model_transmission_type'],
           responseTrims[i]['model_engine_fuel']
       ));
@@ -77,8 +77,8 @@ void createList() async {
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
           responseTrims[i]['model_make_id'],
-          int.parse(responseTrims[i]['model_doors'] ?? "0"),
-          int.parse(responseTrims[i]['model_year'] ?? "0"),
+          (responseTrims[i]['model_doors'] ?? "0") ,
+          (responseTrims[i]['model_year'] ?? "0"),
           responseTrims[i]['model_transmission_type'],
           responseTrims[i]['model_engine_fuel']
       ));
@@ -89,8 +89,8 @@ void createList() async {
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
           responseTrims[i]['model_make_id'],
-          int.parse(responseTrims[i]['model_doors'] ?? "0"),
-          int.parse(responseTrims[i]['model_year'] ?? "0"),
+          (responseTrims[i]['model_doors'] ?? "0") ,
+          (responseTrims[i]['model_year'] ?? "0"),
           responseTrims[i]['model_transmission_type'],
           responseTrims[i]['model_engine_fuel']
       ));
@@ -101,8 +101,8 @@ void createList() async {
           responseTrims[i]['model_body'],
           responseTrims[i]['model_name'],
           responseTrims[i]['model_make_id'],
-          int.parse(responseTrims[i]['model_doors'] ?? "0") ,
-          int.parse(responseTrims[i]['model_year'] ?? "0"),
+          (responseTrims[i]['model_doors'] ?? "0") ,
+          (responseTrims[i]['model_year'] ?? "0"),
           responseTrims[i]['model_transmission_type'],
           responseTrims[i]['model_engine_fuel']
       ));

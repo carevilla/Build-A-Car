@@ -40,11 +40,11 @@ mixin _$UserDB on userDataBase, Store {
   }
 
   @override
-  void addToBuildedCars(Car c) {
+  void addToBuiltCars(Car c) {
     final _$actionInfo = _$userDataBaseActionController.startAction(
-        name: 'userDataBase.addToBuildedCars');
+        name: 'userDataBase.addToBuiltCars');
     try {
-      return super.addToBuildedCars(c);
+      return super.addToBuiltCars(c);
     } finally {
       _$userDataBaseActionController.endAction(_$actionInfo);
     }

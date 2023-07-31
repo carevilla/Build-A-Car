@@ -5,6 +5,7 @@ import 'package:buildacar/carTabs/sportcar_tab.dart';
 import 'package:buildacar/carTabs/suv_tab.dart';
 import 'package:buildacar/dataAvailable/cars_saveddata.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
+import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:buildacar/utilsTab/vehicle_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +21,7 @@ final carsListDB = CarListDB();
 final userDB = UserDB();
 
 Future<void> main() async {
+  createList();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());

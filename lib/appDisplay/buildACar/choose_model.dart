@@ -43,7 +43,7 @@ class _ChooseModel extends State<ChooseModel> {
                       child: IconButton(
                         onPressed: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Build('car')));
+                              MaterialPageRoute(builder: (context) => Build('familyCar')));
                         },
                         icon: Image.asset('lib/Build-A-Car_pictures/TabCar.png', semanticLabel: 'Family Car',),
                       ),

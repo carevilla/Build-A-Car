@@ -13,7 +13,7 @@ abstract class userDataBase with Store {
 
   @observable
   List<Car> favorites = [];
-  List<Car> buildedCars = [];
+  List<Car> builtCars = [];
 
   @action
   void addToFavorites(Car c) {
@@ -21,8 +21,8 @@ abstract class userDataBase with Store {
   }
 
   @action
-  void addToBuildedCars(Car c){
-    buildedCars.add(c);
+  void addToBuiltCars(Car c){
+    builtCars.add(c);
   }
 
 }
