@@ -101,10 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.grey[800],
                 size: 36
               ),
-              onPressed: (){
-                //-- Open Menu Options here
-              },
-            )
+              onPressed: (){}
+              //-- Open Menu Options here
+
+            ),
           ),
           actions: [
             Padding(

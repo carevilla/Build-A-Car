@@ -16,6 +16,24 @@ class CarTile extends StatelessWidget {
     required this.carImage,
   });
 
+  Future showMap(context){
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Map'),
+            content: Image.asset('lib/Build-A-Car_pictures/GoogleMapTA.png'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close'))
+            ],
+          ),
+    );
+  }
+
   showCarInfo(context){
     showDialog(
       context: context,
@@ -33,9 +51,6 @@ class CarTile extends StatelessWidget {
               children: [
                 //Text,
                 ListTile(
-
-
-
                   leading: const Icon(Icons.car_rental),
                   title: Text('$carMake $carModel'),
                   trailing: IconButton(
@@ -45,7 +60,7 @@ class CarTile extends StatelessWidget {
                       size: 36,
                     ),
                     onPressed: (){
-
+                      showMap(context);
                     },
                   ),
                   //trailing: const Icon(Icons.map),
