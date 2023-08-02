@@ -16,29 +16,7 @@ class CarTile extends StatelessWidget {
     required this.carImage,
   });
 
-  Future showCarInformation(context){
-    return showDialog(
-      context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: Text(''),
-            content: Text('Answer saved '),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('close')),
-              TextButton(
-                  onPressed: (){},
-                  child: const Text('Add to favorites'))
-            ],
-          ),
-    );
-  }
-
-
-  carInfo(context){
+  showCarInfo(context){
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -53,18 +31,45 @@ class CarTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'What to remember'
+                //Text,
+                ListTile(
+
+
+
+                  leading: const Icon(Icons.car_rental),
+                  title: Text('$carMake $carModel'),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.map,
+                      color: Colors.red,
+                      size: 36,
+                    ),
+                    onPressed: (){
+
+                    },
                   ),
+                  //trailing: const Icon(Icons.map),
                 ),
+                ListTile(
+                  leading: const Icon(Icons.monetization_on_outlined),
+                  title: Text('Price \$$carPrice'),
+                  trailing: const Icon(Icons.attach_money),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.house),
+                  title: Text('Dealership near you 31 miles away!'),
+                  trailing: Icon(Icons.add_ic_call)
+                ),
+
                 SizedBox(
                   width: 320,
-                  child: ElevatedButton(
-                    onPressed: (){},
+                  child: TextButton(
+                    onPressed: (){
+                      //Add vehicle to user List here
+
+                    },
                     child: const Text(
-                      'Save',
+                      'Add to Favorites',
                       style: TextStyle(color: Colors.greenAccent),
                     ),
                   )
@@ -165,9 +170,7 @@ class CarTile extends StatelessWidget {
                       size: 36,
                     ),
                     onPressed: (){
-                      //showCarInformation(context);
-                      carInfo(context);
-
+                      showCarInfo(context);
                     },
                   ),
                 ],
