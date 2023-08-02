@@ -16,6 +16,69 @@ class CarTile extends StatelessWidget {
     required this.carImage,
   });
 
+  Future showCarInformation(context){
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: Text(''),
+            content: Text('Answer saved '),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('close')),
+              TextButton(
+                  onPressed: (){},
+                  child: const Text('Add to favorites'))
+            ],
+          ),
+    );
+  }
+
+
+  carInfo(context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)
+          ),
+          child: Container(
+            height: 200,
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'What to remember'
+                  ),
+                ),
+                SizedBox(
+                  width: 320,
+                  child: ElevatedButton(
+                    onPressed: (){},
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: Colors.greenAccent),
+                    ),
+                  )
+                )
+              ],
+            ),
+          )
+        );
+      }
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +112,6 @@ class CarTile extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
             // car picture
@@ -58,8 +120,8 @@ class CarTile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
                 child: Image.asset(
                   carImage,
-                  height: 100,
-                  width: 150,
+                  //height: 100,
+                  //width: 150,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -86,14 +148,28 @@ class CarTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.pinkAccent[400]
+                  IconButton(
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      print("hello");
+                    },
                   ),
-                  Icon(
-                    Icons.add,
-                    color: Colors.grey[800],
-                  )
+                  IconButton(
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: Colors.grey[800],
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      //showCarInformation(context);
+                      carInfo(context);
+
+                    },
+                  ),
                 ],
               )
             )
@@ -101,9 +177,5 @@ class CarTile extends StatelessWidget {
         ),
       ),
     );
-
-
-
   }
-
 }

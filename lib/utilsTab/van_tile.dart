@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 class VanTile extends StatelessWidget {
   final String vanMake;
@@ -15,6 +15,26 @@ class VanTile extends StatelessWidget {
     required this.vanColor,
     required this.vanImage,
   });
+
+
+  Future notifyAnswerSaved(context){
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: Text('Status'),
+            content: Text('Answer saved '),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Okay'))
+            ],
+          ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +78,6 @@ class VanTile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
                 child: Image.asset(
                   vanImage,
-                  height: 100,
-                  width: 150,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -86,14 +104,43 @@ class VanTile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
+                    IconButton(
+                      icon: const Icon(
                         Icons.favorite,
-                        color: Colors.pinkAccent[400]
+                        color: Colors.red,
+                        size: 36,
+                      ),
+                      onPressed: (){
+                        print("hello");
+
+                      },
                     ),
-                    Icon(
-                      Icons.add,
-                      color: Colors.grey[800],
-                    )
+                    IconButton(
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: Colors.grey[800],
+                        size: 36,
+                      ),
+                      onPressed: (){
+                        //notifyAnswerSaved(context);
+                        print("hello");
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              AlertDialog(
+                                title: Text('Status'),
+                                content: Text('Answer saved '),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Okay'))
+                                ],
+                              ),
+                        );
+                      },
+                    ),
                   ],
                 )
             )
@@ -105,5 +152,5 @@ class VanTile extends StatelessWidget {
 
 
   }
-
-}
+*/
+//}

@@ -46,7 +46,7 @@ class SVGColorSlider extends StatelessWidget {
             child: Container(
                 height: 50,
                 width: 50,
-                margin: EdgeInsets.all(5.0),
+                margin: const EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   color: mapEntry.value,
                   shape: BoxShape.circle,
@@ -63,7 +63,7 @@ class SVGColorSlider extends StatelessWidget {
                             .split(':')[0]
                             .split('.')[0]
                             .toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 8.75,
                           fontWeight: FontWeight.bold,
                         ))
@@ -75,7 +75,7 @@ class SVGColorSlider extends StatelessWidget {
                             .split(':')[0]
                             .split('.')[0]
                             .toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 8.75,
                             fontWeight: FontWeight.bold,
                             color: Colors.white)))),

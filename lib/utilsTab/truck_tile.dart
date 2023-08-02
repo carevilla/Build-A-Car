@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 class TruckTile extends StatelessWidget {
   final String truckMake;
@@ -58,8 +58,8 @@ class TruckTile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
                 child: Image.asset(
                   truckImage,
-                  height: 100,
-                  width: 150,
+                  //height: 100,
+                  //width: 150,
                  fit: BoxFit.fitWidth,
                 ),
               ),
@@ -86,14 +86,26 @@ class TruckTile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
+                    IconButton(
+                      icon: const Icon(
                         Icons.favorite,
-                        color: Colors.pinkAccent[400]
+                        color: Colors.red,
+                        size: 36,
+                      ),
+                      onPressed: (){
+
+                      },
                     ),
-                    Icon(
-                      Icons.add,
-                      color: Colors.grey[800],
-                    )
+                    IconButton(
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: Colors.grey[800],
+                        size: 36,
+                      ),
+                      onPressed: (){
+
+                      },
+                    ),
                   ],
                 )
             )
@@ -105,5 +117,5 @@ class TruckTile extends StatelessWidget {
 
 
   }
-
-}
+*/
+//}

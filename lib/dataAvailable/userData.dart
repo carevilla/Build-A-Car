@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:mobx/mobx.dart';
 import '../serverCalls/car.dart';
 
@@ -24,5 +20,8 @@ abstract class userDataBase with Store {
   void addToBuiltCars(Car c){
     builtCars.add(c);
   }
+
+  // @action -> Add a addToFavorites( to take The List car thats hardcoded)
+  // flutter packages run build_runner watch
 
 }
