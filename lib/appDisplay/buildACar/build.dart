@@ -3,7 +3,7 @@
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
-import 'package:buildacar/appDisplay/buildACar/search_results.dart';
+import 'package:buildacar/appDisplay/buildACar/resultsPage.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'colors.dart';
 class Build extends StatefulWidget{
 
   String model ='';
-  UserChoices user = UserChoices();                                             /// a user class is created
+  UserChoices user = UserChoices();
 
   Build(String m){                                                              /// receives model chosen by user
     model = m;
@@ -31,22 +31,45 @@ class Build extends StatefulWidget{
 
 class _Build extends State<Build> {
 
-
   String colorCode = '';
   String showYearS = DateTime.now().year.toString();
+  String yearSelected = "";
+  String makeSelected = "";
+  String modelSelected = "";
+  String doorsSelected = "";
+  String driveSelected = "";
+  String fuelSelected = "";
+
+  List<String> makesAvailable = [];
+  List<String> modelsAvailable = [];
+  List<String> doorsAvailable = [];
+  List<String> driveAvailable = [];
+  List<String> fuelAvailable = [];
 
   @override
-  selectedYear(String y){                                                          /// updates button to show the selected year
+  update(){                                                          /// updates button to show the selected year
     setState(() {
-      showYearS = y;
+      yearSelected = widget.user.getYear;
+      makeSelected = widget.user.getMake;
+      modelSelected = widget.user.getModel;
+      doorsSelected = widget.user.getDoors;
+      driveSelected = widget.user.getDrive;
+      fuelSelected = widget.user.getFuelType;
+
+      widget.user.setColor = colorCode;
+      makesAvailable = carsListDB.showMake(widget.model, yearSelected);
+      modelsAvailable = carsListDB.showModels(widget.model, yearSelected, makeSelected);
+      doorsAvailable = carsListDB.showDoors(widget.model, yearSelected, makeSelected, modelSelected);
+      driveAvailable = carsListDB.showDrive(widget.model, yearSelected, makeSelected, modelSelected);
+      fuelAvailable = carsListDB.showFuelType(widget.model, yearSelected, makeSelected, modelSelected);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
+    widget.user.setCarType = widget.model;
     final DateTime selectedDate = widget.user.getDate;
-    selectedYear(widget.user.getYear);
+    update();
 
     return Scaffold(
       appBar: AppBar(
@@ -54,6 +77,7 @@ class _Build extends State<Build> {
         backgroundColor: Colors.lightBlue,
       ),
       body: SafeArea(
+        right: false,
           child: ListView(                                                      /// creates the page scrollable
             padding: const EdgeInsets.all(15),
             children: [
@@ -73,112 +97,65 @@ class _Build extends State<Build> {
                     )
               ),
               const Divider(height: 5, color: Colors.grey,),
-              Row(                                                                       /// row shows text and button to pick year wanted
-                children: [
-                  const Text("Choose year: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: () {
-
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          dropDown(carsListDB.showAvailableYears(widget.model))
-                        ],
-                      )
-                  ),
-                ],
+              Center(
+                child: Row(                                                                       /// row shows text and button to pick year wanted
+                  children: [
+                    const Text("Year:    ",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                    dropDown(carsListDB.showAvailableYears(widget.model), "year"),
+                    SizedBox(width: 50,),
+                    Text(yearSelected, overflow: TextOverflow.fade,)
+                  ],
+                ),
               ),
               const Divider(height: 5, color: Colors.grey,),
               Row(                                                              /// Row chose text and button to choose model
                 children: [
-                  const Text("Choose Make: ",
+                  const Text("Make:   ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          dropDown(carsListDB.showMake(widget.model, widget.user.getYear))
-                        ],
-                      )),
-
+                  dropDown(makesAvailable, "make"),
+                  SizedBox(width: 50,),
+                  Text(makeSelected)
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
               Row(
                 children: [
-                  const Text("Choose Model: ",
+                  const Text("Model:  ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          Text('${widget.user.getModel}'),
-                          Icon(Icons.arrow_drop_down),
-                        ],
-                      )),
+                  dropDown(modelsAvailable, "model"),
+                  SizedBox(width: 50,),
+                  Text(modelSelected)
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
               Row(
                 children: [
-                  const Text("Choose number of Doors: ",
+                  const Text("Doors:   ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          Text('${widget.user.getDoors}'),
-                          Icon(Icons.arrow_drop_down),
-                        ],
-                      )),
+                  dropDown(doorsAvailable, "doors"),
+                  SizedBox(width: 50,),
+                  Text(doorsSelected)
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
               Row(
                 children: [
-                  const Text("Choose Drive: ",
+                  const Text("Drive:    ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          Text('${widget.user.getDrive}'),
-                          Icon(Icons.arrow_drop_down),
-                        ],
-                      )),
+                  dropDown(driveAvailable, "drive"),
+                  SizedBox(width: 50,),
+                  Text(driveSelected)
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
               Row(
                 children: [
-                  const Text("Choose Fuel Type: ",
+                  const Text("Fuel-Type:  ",
                     style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      onPressed: (){
-                        pickYear(widget.user, selectedDate);
-                      },
-                      child: Row(
-                        children: [
-                          Text('${widget.user.getFuelType}'),
-                          Icon(Icons.arrow_drop_down),
-                        ],
-                      )),
+                  dropDown(fuelAvailable, "fuel"),
+                  SizedBox(width: 50,),
+                  Text(fuelSelected)
                 ],
               ),
               const Divider(height: 5, color: Colors.grey,),
@@ -187,8 +164,9 @@ class _Build extends State<Build> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   onPressed: () {
+
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ResultsPage()));
+                        MaterialPageRoute(builder: (context) => ResultsPage(widget.user)));
                   },
                   child: Text('Show Results'),
                 ),
@@ -200,25 +178,44 @@ class _Build extends State<Build> {
   }
 
   @override
-  Widget dropDown(List<dynamic> list) {
-    String dropdownValue = list.first;
-    return DropdownButton<dynamic>(
+  Widget dropDown(List<String> list, String selectingOption) {
+    list.add("Select Option...");
+    String dropdownValue = list.last;
+
+
+    return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
+      style: const TextStyle(color: Colors.lightBlue),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Colors.indigo,
       ),
-      onChanged: (dynamic? value) {
+      onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          if(selectingOption == "year"){
+            widget.user.setYear = value!;
+          } else if (selectingOption == "make"){
+            widget.user.setMake = value!;
+          } else if (selectingOption == "model"){
+            widget.user.setModel = value!;
+          } else if (selectingOption == "doors"){
+            widget.user.setDoors = value!;
+          } else if (selectingOption == "drive"){
+            widget.user.setDrive = value!;
+          } else if (selectingOption == "fuel"){
+            widget.user.setFuelType = value!;
+          }
+
+          update();
         });
+
       },
-      items: list.map<DropdownMenuItem<dynamic>>((dynamic value) {
-        return DropdownMenuItem<dynamic>(
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
         );
@@ -246,7 +243,6 @@ class _Build extends State<Build> {
                 // close the dialog when year is selected.
                 user.setYear = dateTime.year.toString();                                   /// user choices are saved into the user class
                 user.setDate = dateTime;
-                selectedYear(widget.user.getYear);
                 Navigator.pop(context);                                         /// Alert Dialog is removed
               },
             ),

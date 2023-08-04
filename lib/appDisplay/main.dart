@@ -21,8 +21,6 @@ final carsListDB = CarListDB();
 final userDB = UserDB();
 
 
-//userDB.addToFavorites(<Car Object>)
-
 Future<void> main() async {
   createList();
   WidgetsFlutterBinding.ensureInitialized();

@@ -20,7 +20,6 @@ class _LogAuth extends State<LogAuth> {
 
   bool isLogin = true;
 
-
   @override
   Widget build(BuildContext context) =>
       isLogin ? LoginW(onClickedSignIn: toggle) : SignUpW(onClickedSignUp: toggle);        /// if user is logged in it shows logIn, if not shows sign up.

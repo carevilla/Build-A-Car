@@ -21,7 +21,5 @@ abstract class userDataBase with Store {
     builtCars.add(c);
   }
 
-  // @action -> Add a addToFavorites( to take The List car thats hardcoded)
-  // flutter packages run build_runner watch
 
 }

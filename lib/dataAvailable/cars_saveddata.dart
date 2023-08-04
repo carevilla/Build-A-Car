@@ -25,7 +25,6 @@ abstract class CarsListDataBase with Store {
 
     if(carModel == "familyCar"){
       for(Car familyCar in familyCarList){
-        print(familyCar.getYear);
         tempYears.add(familyCar.getYear);
       }
     } else if (carModel == "truck") {
@@ -45,9 +44,47 @@ abstract class CarsListDataBase with Store {
         tempYears.add(sport.getYear);
       }
     }
-
     return tempYears.toList();
+  }
 
+  @action
+  List<Car> listOfCarsByYear(String carModel, String selectedYear){
+
+    List<Car> tempYear = [];
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        if(familyCar.getYear == selectedYear){
+          tempYear.add(familyCar);
+        }
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        if(truck.getYear == selectedYear){
+          tempYear.add(truck);
+        }
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        if(suv.getYear == selectedYear){
+          tempYear.add(suv);
+        }
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        if(van.getYear == selectedYear){
+         tempYear.add(van);
+        }
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        if(sport.getYear == selectedYear){
+          tempYear.add(sport);
+        }
+      }
+    }
+
+    return tempYear;
   }
 
   @action
@@ -57,23 +94,33 @@ abstract class CarsListDataBase with Store {
 
     if(carModel == "familyCar"){
       for(Car familyCar in familyCarList){
-        temp.add(familyCar.getMake);
+        if(familyCar.getYear == yearSelected){
+          temp.add(familyCar.getMake);
+        }
       }
     } else if (carModel == "truck") {
       for(Car truck in trucksList){
-        temp.add(truck.getMake);
+        if(truck.getYear == yearSelected){
+          temp.add(truck.getMake);
+        }
       }
     } else if (carModel == "suv") {
       for(Car suv in suvList){
-        temp.add(suv.getMake);
+        if(suv.getYear == yearSelected){
+          temp.add(suv.getMake);
+        }
       }
     } else if (carModel == "van") {
       for(Car van in vanList){
-        temp.add(van.getMake);
+        if(van.getYear == yearSelected){
+          temp.add(van.getMake);
+        }
       }
     } else if (carModel == "sport") {
       for(Car sport in sportList){
-        temp.add(sport.getMake);
+        if(sport.getYear == yearSelected){
+          temp.add(sport.getMake);
+        }
       }
     }
 
@@ -83,34 +130,158 @@ abstract class CarsListDataBase with Store {
   }
 
   @action
-  List<String> showModels(String carModel){
+  List<String> showModels(String carModel, String year, String make){
 
     Set<String> temp = {};
 
     if(carModel == "familyCar"){
       for(Car familyCar in familyCarList){
-        temp.add(familyCar.getModel);
+        if(familyCar.getYear == year && familyCar.getMake == make){
+          temp.add(familyCar.getModel);
+        }
       }
     } else if (carModel == "truck") {
       for(Car truck in trucksList){
-        temp.add(truck.getModel);
+        if(truck.getYear == year && truck.getMake == make){
+          temp.add(truck.getModel);
+        }
       }
     } else if (carModel == "suv") {
       for(Car suv in suvList){
-        temp.add(suv.getModel);
+        if(suv.getYear == year && suv.getMake == make){
+          temp.add(suv.getModel);
+        }
       }
     } else if (carModel == "van") {
       for(Car van in vanList){
-        temp.add(van.getModel);
+        if(van.getYear == year && van.getMake == make){
+          temp.add(van.getModel);
+        }
       }
     } else if (carModel == "sport") {
       for(Car sport in sportList){
-        temp.add(sport.getModel);
+        if(sport.getYear == year && sport.getMake == make){
+          temp.add(sport.getModel);
+        }
       }
     }
 
     return temp.toList();
 
+  }
+
+  @action
+  List<String> showDoors(String carModel, String year, String make, String model){
+    Set<String> temp = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        if(familyCar.getYear == year && familyCar.getMake == make && familyCar.getModel == model){
+          temp.add(familyCar.getDoors);
+        }
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        if(truck.getYear == year && truck.getMake == make && truck.getModel == model){
+          temp.add(truck.getDoors);
+        }
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        if(suv.getYear == year && suv.getMake == make && suv.getModel == model){
+          temp.add(suv.getDoors);
+        }
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        if(van.getYear == year && van.getMake == make && van.getModel == model){
+          temp.add(van.getDoors);
+        }
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        if(sport.getYear == year && sport.getMake == make && sport.getModel == model){
+          temp.add(sport.getDoors);
+        }
+      }
+    }
+    return temp.toList();
+  }
+
+  @action
+  List<String> showDrive(String carModel, String year, String make, String model){
+    Set<String> temp = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        if(familyCar.getYear == year && familyCar.getMake == make && familyCar.getModel == model){
+          temp.add(familyCar.getDrive);
+        }
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        if(truck.getYear == year && truck.getMake == make && truck.getModel == model){
+          temp.add(truck.getDrive);
+        }
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        if(suv.getYear == year && suv.getMake == make && suv.getModel == model){
+          temp.add(suv.getDrive);
+        }
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        if(van.getYear == year && van.getMake == make && van.getModel == model){
+          temp.add(van.getDrive);
+        }
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        if(sport.getYear == year && sport.getMake == make && sport.getModel == model){
+          temp.add(sport.getDrive);
+        }
+      }
+    }
+    return temp.toList();
+  }
+
+  @action
+  List<String> showFuelType(String carModel, String year, String make, String model){
+    Set<String> temp = {};
+
+    if(carModel == "familyCar"){
+      for(Car familyCar in familyCarList){
+        if(familyCar.getYear == year && familyCar.getMake == make && familyCar.getModel == model){
+          temp.add(familyCar.getFuelType);
+        }
+      }
+    } else if (carModel == "truck") {
+      for(Car truck in trucksList){
+        if(truck.getYear == year && truck.getMake == make && truck.getModel == model){
+          temp.add(truck.getFuelType);
+        }
+      }
+    } else if (carModel == "suv") {
+      for(Car suv in suvList){
+        if(suv.getYear == year && suv.getMake == make && suv.getModel == model){
+          temp.add(suv.getFuelType);
+        }
+      }
+    } else if (carModel == "van") {
+      for(Car van in vanList){
+        if(van.getYear == year && van.getMake == make && van.getModel == model){
+          temp.add(van.getFuelType);
+        }
+      }
+    } else if (carModel == "sport") {
+      for(Car sport in sportList){
+        if(sport.getYear == year && sport.getMake == make && sport.getModel == model){
+          temp.add(sport.getFuelType);
+        }
+      }
+    }
+    return temp.toList();
   }
 
   @action
@@ -163,34 +334,6 @@ abstract class CarsListDataBase with Store {
     return results;
 
   }
-
-  /*
-  @action
-  Car showRandom(String carModel) {
-
-    Random rand = new Random();
-
-    if(carModel == "truck"){
-      int index = rand.nextInt(trucksList.length);
-      return trucksList[index];
-    } else if (carModel == "suv"){
-      int index = rand.nextInt(suvList.length);
-      return suvList[index];
-    } else if (carModel == "sport"){
-      int index = rand.nextInt(sportList.length);
-      return sportList[index];
-    } else if (carModel == "van") {
-      int index = rand.nextInt(vanList.length);
-      return vanList[index];
-    } else (carModel == "familyCar") {
-      int index = rand.nextInt(familyCarList.length);
-      return familyCarList[index];
-    }
-
-  }
-
-   */
-
 
 }
 
