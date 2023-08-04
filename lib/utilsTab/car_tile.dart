@@ -176,6 +176,7 @@ class CarTile extends StatelessWidget {
                     onPressed: (){
                       //Add to favorites here !!!!!
                       notifyAddedToFavorites(context);
+
                     },
                   ),
                   IconButton(
