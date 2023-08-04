@@ -34,70 +34,71 @@ class CarTile extends StatelessWidget {
     );
   }
 
+  Future notifyAddedToFavorites(context){
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Favorite'),
+            content: Text('$carMake $carModel added to your favorites'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close'))
+            ],
+          ),
+    );
+  }
+
   showCarInfo(context){
     showDialog(
       context: context,
       builder: (BuildContext context){
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: Container(
-            height: 200,
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //Text,
-                ListTile(
-                  leading: const Icon(Icons.car_rental),
-                  title: Text('$carMake $carModel'),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.map,
-                      color: Colors.red,
-                      size: 36,
-                    ),
-                    onPressed: (){
-                      showMap(context);
-                    },
-                  ),
-                  //trailing: const Icon(Icons.map),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.monetization_on_outlined),
-                  title: Text('Price \$$carPrice'),
-                  trailing: const Icon(Icons.attach_money),
-                ),
-                const ListTile(
-                  leading: Icon(Icons.house),
-                  title: Text('Dealership near you 31 miles away!'),
-                  trailing: Icon(Icons.add_ic_call)
-                ),
-
-                SizedBox(
-                  width: 320,
-                  child: TextButton(
-                    onPressed: (){
-                      //Add vehicle to user List here
-
-                    },
-                    child: const Text(
-                      'Add to Favorites',
-                      style: TextStyle(color: Colors.greenAccent),
-                    ),
-                  )
-                )
-              ],
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)
             ),
-          )
-        );
+              child: Container(
+                height: 200,
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Text,
+                    ListTile(
+                      leading: const Icon(Icons.car_rental),
+                      title: Text('$carMake $carModel'),
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.map,
+                          color: Colors.red,
+                          size: 36,
+                        ),
+                        onPressed: (){
+                          showMap(context);
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.monetization_on_outlined),
+                      title: Text('Price \$$carPrice'),
+                      trailing: const Icon(Icons.attach_money),
+                    ),
+                    const ListTile(
+                      leading: Icon(Icons.house),
+                      title: Text('Dealership near you 31 miles away!'),
+                      trailing: Icon(Icons.add_ic_call)
+                    ),
+                  ],
+                ),
+              ),
+          );
       }
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -140,8 +141,6 @@ class CarTile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 22 , vertical: 8),
                 child: Image.asset(
                   carImage,
-                  //height: 100,
-                  //width: 150,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -175,7 +174,8 @@ class CarTile extends StatelessWidget {
                       size: 36,
                     ),
                     onPressed: (){
-                      print("hello");
+                      //Add to favorites here !!!!!
+                      notifyAddedToFavorites(context);
                     },
                   ),
                   IconButton(
