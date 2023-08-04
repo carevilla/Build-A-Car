@@ -26,6 +26,8 @@ dependencies:
   mobx: ^2.0.5             # Mobx
   flutter_mobx: ^2.0.2
 
+  flutter_slider_drawer: ^2.1.3
+
 
 dev_dependencies:
   flutter_test:
