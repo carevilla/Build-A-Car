@@ -14,20 +14,8 @@ class SVGColorSlider extends StatelessWidget {
     'Black.black:#1B1B1B': Color.fromARGB(255, 0, 0, 0),
     'White.ghostwhite:white': Color.fromARGB(255, 255, 255, 255),
     'Grey.grey:#989797FF': Color.fromARGB(255, 152, 151, 151),
-    'Silver.silver:#D5D5D5FF': Color.fromARGB(255, 213, 213, 213),
     'Red.red:#F93838': Color.fromARGB(255, 255, 0, 0),
-    'Maroon.#800000:#930303': Color.fromARGB(255, 128, 0, 0),
     'Blue.blue:blue': Color.fromARGB(255, 0, 0, 255),
-    'Navy.#0000CD:#0606ED': Color.fromARGB(255, 0, 0, 128),
-    'Turquoise.#40E0D0:#00CED1': Color.fromARGB(255, 64, 224, 208),
-    'Green.#22b14c:#26bf4e': Colors.green,
-    'Bronze.#CD7F32:#D68943': Color.fromARGB(255, 82, 71, 65),
-    'Yellow.#FFFF19:#FFFF19': Color.fromARGB(255, 255, 255, 0),
-    'Gold.goldenrod:goldenrod': Color.fromARGB(255, 255, 215, 0),
-    'Orange.#FF8C00:#FFA500': Color.fromARGB(255, 255, 165, 0),
-    'Magenta.#FF00FF:#FA5AFF': Color.fromARGB(255, 255, 0, 255),
-    'Purple.#6A0DAD:#7819CC': Colors.purple,
-    //'Slate.#708090:#284646': Color.fromARGB(255, 112, 128, 144),
   };
 
   /// Triggers when tapped on a color

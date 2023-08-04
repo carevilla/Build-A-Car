@@ -40,6 +40,17 @@ mixin _$CarListDB on CarsListDataBase, Store {
   }
 
   @override
+  List<Car> listOfCarsByYear(String carModel, String selectedYear) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.listOfCarsByYear');
+    try {
+      return super.listOfCarsByYear(carModel, selectedYear);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   List<String> showMake(String carModel, String yearSelected) {
     final _$actionInfo = _$CarsListDataBaseActionController.startAction(
         name: 'CarsListDataBase.showMake');
@@ -51,11 +62,47 @@ mixin _$CarListDB on CarsListDataBase, Store {
   }
 
   @override
-  List<String> showModels(String carModel) {
+  List<String> showModels(String carModel, String year, String make) {
     final _$actionInfo = _$CarsListDataBaseActionController.startAction(
         name: 'CarsListDataBase.showModels');
     try {
-      return super.showModels(carModel);
+      return super.showModels(carModel, year, make);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<String> showDoors(
+      String carModel, String year, String make, String model) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showDoors');
+    try {
+      return super.showDoors(carModel, year, make, model);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<String> showDrive(
+      String carModel, String year, String make, String model) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showDrive');
+    try {
+      return super.showDrive(carModel, year, make, model);
+    } finally {
+      _$CarsListDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<String> showFuelType(
+      String carModel, String year, String make, String model) {
+    final _$actionInfo = _$CarsListDataBaseActionController.startAction(
+        name: 'CarsListDataBase.showFuelType');
+    try {
+      return super.showFuelType(carModel, year, make, model);
     } finally {
       _$CarsListDataBaseActionController.endAction(_$actionInfo);
     }

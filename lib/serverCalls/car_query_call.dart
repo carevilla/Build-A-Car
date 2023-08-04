@@ -37,11 +37,7 @@ void createList() async {
   var responseTrims = responseDecoded['Trims'];
   print(responseTrims[1]['model_year']);
   var colorList = ['Black',
-    'White', 'Grey', 'Silver',
-    'Red', 'Maroon', 'Blue',
-    'Navy', 'Turquoise', 'Green',
-    'Bronze', 'Yellow', 'Gold',
-    'Orange', 'Magenta', 'Purple'];
+    'White', 'Grey', 'Red', 'Blue',];
 
   print(responseTrims[44]);
 

@@ -6,6 +6,7 @@
 
 class UserChoices {
 
+  String _carType = "";
   String _carColor = "";
   String _year = DateTime.now().year.toString();
   DateTime _dateTime = DateTime.now();
@@ -15,7 +16,13 @@ class UserChoices {
   String _carDrive = "Drive...";
   String _carFuelType = "Fuel Type...";
 
+
   /// Getters and Setters
+
+  String get getCarType => _carType;
+  set setCarType(String c){
+    _carType = c;
+  }
 
   String get getColor => _carColor;
   set setColor(String c){
