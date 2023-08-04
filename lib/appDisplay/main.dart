@@ -1,21 +1,16 @@
 import 'package:buildacar/appDisplay/accountPage/account.dart';
 import 'package:buildacar/appDisplay/buildACar/choose_model.dart';
-import 'package:buildacar/appDisplay/user_list.dart';
-import 'package:buildacar/carTabs/sportcar_tab.dart';
-import 'package:buildacar/carTabs/suv_tab.dart';
 import 'package:buildacar/dataAvailable/cars_saveddata.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
 import 'package:buildacar/serverCalls/car_query_call.dart';
-import 'package:buildacar/utilsTab/vehicle_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:buildacar/firebase_options.dart';
-import 'package:month_year_picker/month_year_picker.dart';
-import '../carTabs/car_tab.dart';
-import '../carTabs/truck_tab.dart';
-import '../carTabs/van_tab.dart';
+import 'BuiltCars.dart';
+import 'Favorites.dart';
+import 'HomePage.dart';
 import 'accountPage/utils.dart';
-import 'buildACar/build.dart';
+
 
 final carsListDB = CarListDB();
 final userDB = UserDB();
@@ -43,149 +38,156 @@ class MyApp extends StatelessWidget {
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         //useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: StartPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class StartPage extends StatefulWidget{
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _StartPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _StartPage extends State<StartPage> {
+  int _selectedIndex = 0;
+  List<Widget> pageWidgets = [
+    MyHomePage(),
+    Favorites(),
+    BuiltCars(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // List of Cars for home page
-    List<Widget> appCars = const [
-      // Car tab
-      VehicleTab(
-        iconPath: 'lib/Build-A-Car_pictures/TabCar.png'
-      ),
-      // Truck tab
-      VehicleTab(
-          iconPath: 'lib/Build-A-Car_pictures/TabTruck.png'
-      ),
-      // SUV tab
-      VehicleTab(
-          iconPath: 'lib/Build-A-Car_pictures/TabSUV.png'
-      ),
-      // Van tab
-      VehicleTab(
-          iconPath: 'lib/Build-A-Car_pictures/TabVan.png'
-      ),
-      // Sport car tab
-      VehicleTab(
-          iconPath: 'lib/Build-A-Car_pictures/TabSport.png'
-      ),
-    ];
-
-    return DefaultTabController(
-      length: appCars.length,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           elevation: 0,
           title: const Text("Build-A-Car", style: TextStyle(color: Colors.white),),
           centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 24.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.grey[800],
-                size: 36
-              ),
-              onPressed: (){}
-              //-- Open Menu Options here
-
-            ),
-          ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.person,
-                      color: Colors.grey[800],
-                      size: 36,
+                padding: const EdgeInsets.only(left: 24.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.grey[800],
+                        size: 36,
+                      ),
+                      onPressed: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Account()));
+                      },
                     ),
-                    onPressed: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Account()));
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.car_crash_outlined,
-                      color: Colors.black,
-                      size: 36,
+                    IconButton(
+                      icon: const Icon(
+                        Icons.car_crash_outlined,
+                        color: Colors.black,
+                        size: 36,
+                      ),
+                      onPressed: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => ChooseModel()));
+                      },
                     ),
-                    onPressed: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ChooseModel()));
-                    },
-                  ),
 
-                ],
-              )
+                  ],
+                )
             )
           ],
         ),
-        body: Column(
+      body: Center(
+        child: pageWidgets[_selectedIndex],
+      ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        backgroundColor: Colors.white,
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
           children: [
-            // Text Welcome to Build-A-Car
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 36.0 , vertical: 18),
-              child: Row(
-                children: [
-                  Text(
-                    'Search ',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    'BUILD-A-CAR',
-                    style: TextStyle(fontSize: 32 , fontWeight: FontWeight.bold),
-                  )
-                ], // children
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.lightBlueAccent,
               ),
-            ),
-            const SizedBox(height: 24),
-
-            //Tab Bar
-            TabBar(
-                tabs: appCars
-            ),
-
-            //Tab Bar View
-            Expanded(
-              child: TabBarView(
+              child: Center(child: Column(
                 children: [
-                  // Simple car Page
-                  CarTab(),
-
-                  // Truck Page
-                  TruckTab(),
-
-                  // SUV Page
-                  SUVTab(),
-
-                  // Van Page
-                  VanTab(),
-
-                  // Sport Car Page
-                  SportTab()
+                  const Icon(Icons.account_circle_sharp, color: Colors.black, size: 88,),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Account()));
+                    },
+                    child: const Text("Go to Account",
+                      style: TextStyle(color: Colors.black),),
+                  ),
                 ],
-              ) ,
-            )
+              )),
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Icon(Icons.home, color: Colors.black,),
+                  SizedBox(width: 10,),
+                  Text('Home',
+                    style: TextStyle(fontSize: 16),),
+                ],
+              ),
+              selected: _selectedIndex == 0,
+              onTap: () {
+                // Update the state of the app
+                _onItemTapped(0);
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Icon(Icons.favorite, color: Colors.black,),
+                  SizedBox(width: 10,),
+                  Text('Favorites',
+                  style: TextStyle(fontSize: 16),),
+                ],
+              ),
+              selected: _selectedIndex == 1,
+              onTap: () {
+                // Update the state of the app
+                _onItemTapped(1);
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Icon(Icons.garage_sharp, color: Colors.black,),
+                  SizedBox(width: 10,),
+                  Text('Built Cars',
+                    style: TextStyle(fontSize: 16),),
+                ],
+              ),
+              selected: _selectedIndex == 2,
+              onTap: () {
+                // Update the state of the app
+                _onItemTapped(2);
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
           ],
-        )
+        ),
       ),
     );
-  }
-}
+  }}
+

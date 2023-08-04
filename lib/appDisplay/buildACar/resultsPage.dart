@@ -85,7 +85,7 @@ class _ResultsPage extends State<ResultsPage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text('Model: ${list[index].getModel}', style: TextStyle(color: Colors.black),),
+                    Text('${list[index].getMake} ${list[index].getModel}', style: TextStyle(color: Colors.black),),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,6 +124,7 @@ class _ResultsPage extends State<ResultsPage> {
                         IconButton(
                             onPressed: () {
                               userDB.addToFavorites(list[index]);
+                              debugPrint('Added to favs.');
                             },
                             icon: Icon(Icons.favorite_border_outlined),
                         )
