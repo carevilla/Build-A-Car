@@ -1,4 +1,7 @@
+import 'package:buildacar/appDisplay/main.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:buildacar/dataAvailable/userData.dart';
 
 class CarTile extends StatelessWidget {
   final String carMake;
@@ -41,6 +44,24 @@ class CarTile extends StatelessWidget {
           AlertDialog(
             title: const Text('Favorite'),
             content: Text('$carMake $carModel added to your favorites'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close'))
+            ],
+          ),
+    );
+  }
+
+  Future alreadyFavoritedNotification(context){
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Favorite'),
+            content: Text('$carMake $carModel is already in favorites'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -167,17 +188,21 @@ class CarTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 36,
-                    ),
-                    onPressed: (){
-                      //Add to favorites here !!!!!
-                      notifyAddedToFavorites(context);
-
-                    },
+                  FavoriteButton(
+                    isFavorite: false,
+                    valueChanged: (isFavorite) {
+                      if(isFavorite) {
+                        if(!userDB.hardcodedFavorites.contains(this)){
+                          userDB.addToHardcodedFavorites(this);
+                          notifyAddedToFavorites(context);
+                        } else {
+                          alreadyFavoritedNotification(context);
+                        }
+                        debugPrint("Add to faves");
+                      } else {
+                        debugPrint("Removed");
+                      }
+                    }
                   ),
                   IconButton(
                     icon: Icon(
