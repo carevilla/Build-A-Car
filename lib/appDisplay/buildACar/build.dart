@@ -3,11 +3,11 @@
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
-import 'package:buildacar/appDisplay/buildACar/resultsPage.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Results.dart';
 import 'colors.dart';
 
 /// Class shows the build your own car page to the user.
@@ -19,7 +19,7 @@ class Build extends StatefulWidget{
   String model ='';
   UserChoices user = UserChoices();
 
-  Build(String m){                                                              /// receives model chosen by user
+  Build(String m,){                                                              /// receives model chosen by user
     model = m;
   }
 
@@ -166,7 +166,7 @@ class _Build extends State<Build> {
                   onPressed: () {
 
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ResultsPage(widget.user)));
+                        MaterialPageRoute(builder: (context) => Results(widget.user)));
                   },
                   child: Text('Show Results'),
                 ),
