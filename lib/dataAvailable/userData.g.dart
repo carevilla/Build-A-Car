@@ -51,6 +51,17 @@ mixin _$UserDB on userDataBase, Store {
   }
 
   @override
+  void addToHardcodedFavorites(CarTile c) {
+    final _$actionInfo = _$userDataBaseActionController.startAction(
+        name: 'userDataBase.addToHardcodedFavorites');
+    try {
+      return super.addToHardcodedFavorites(c);
+    } finally {
+      _$userDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 favorites: ${favorites}
