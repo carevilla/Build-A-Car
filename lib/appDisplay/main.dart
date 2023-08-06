@@ -71,21 +71,6 @@ class _StartPage extends State<StartPage> {
           elevation: 0,
           title: const Text("Build-A-Car", style: TextStyle(color: Colors.white),),
           centerTitle: true,
-//<<<<<<< HEAD
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 24.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.grey[800],
-                size: 36
-              ),
-              onPressed: (){}
-              //-- Open Menu Options here
-            ),
-          ),
-//=======
-//>>>>>>> 88105231d9a38cf9d5429e9b3d7ac16e880cbd57
           actions: [
             Padding(
                 padding: const EdgeInsets.only(left: 24.0),
@@ -113,7 +98,6 @@ class _StartPage extends State<StartPage> {
                             MaterialPageRoute(builder: (context) => ChooseModel()));
                       },
                     ),
-
                   ],
                 )
             )
