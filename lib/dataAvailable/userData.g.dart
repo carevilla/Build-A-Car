@@ -62,6 +62,28 @@ mixin _$UserDB on userDataBase, Store {
   }
 
   @override
+  void removeFromHardcodedFavorites(CarTile c) {
+    final _$actionInfo = _$userDataBaseActionController.startAction(
+        name: 'userDataBase.removeFromHardcodedFavorites');
+    try {
+      return super.removeFromHardcodedFavorites(c);
+    } finally {
+      _$userDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeFromFavorites(Car c) {
+    final _$actionInfo = _$userDataBaseActionController.startAction(
+        name: 'userDataBase.removeFromFavorites');
+    try {
+      return super.removeFromFavorites(c);
+    } finally {
+      _$userDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 favorites: ${favorites}

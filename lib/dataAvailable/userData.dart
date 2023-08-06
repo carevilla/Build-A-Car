@@ -28,4 +28,14 @@ abstract class userDataBase with Store {
     hardcodedFavorites.add(c);
   }
 
+  @action
+  void removeFromHardcodedFavorites(CarTile c){
+    hardcodedFavorites.remove(c);
+  }
+
+  @action
+  void removeFromFavorites(Car c){
+    favorites.remove(c);
+  }
+
 }

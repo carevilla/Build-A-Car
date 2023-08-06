@@ -16,14 +16,24 @@ class CarMatches {
   List<Car> fiveMatches = [];
   List<Car> sixMacthes = [];
   List<Car> sevenMatches = [];
+  List<Car> fullMatchesList = [];
 
   CarMatches(UserChoices user){
     yearList(user.getCarType, user.getYear);
     forTwoMatches(user.getMake);
     forThreeMatches(user.getModel);
     forMoreMatches(user.getDrive, user.getDoors, user.getFuelType, user.getColor);
+    fullMatchList();
   }
 
+  fullMatchList(){
+    fullMatchesList.addAll(sevenMatches);
+    fullMatchesList.addAll(sixMacthes);
+    fullMatchesList.addAll(fiveMatches);
+    fullMatchesList.addAll(fourMatches);
+    fullMatchesList.addAll(threeMatches);
+  }
+  
   yearList(String carModel, String selectedYear){
     yearMatch = carsListDB.listOfCarsByYear(carModel, selectedYear);
   }
