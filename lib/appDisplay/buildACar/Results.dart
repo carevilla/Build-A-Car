@@ -54,7 +54,7 @@ class _Results extends State<Results>{
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.garage_sharp, color: toColor(matchLists.fullMatchesList[index].getColor), size: 100,),
-                          SizedBox(width: 15,),
+                          SizedBox(width: 10,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class _Results extends State<Results>{
                               Text('Color: ${matchLists.fullMatchesList[index].getColor}'),
                             ],
                           ),
-                          SizedBox(width: 40,),
+                          SizedBox(width: 20,),
                           Column(
                             children: [
                               Row(
@@ -75,7 +75,7 @@ class _Results extends State<Results>{
                                     onPressed: () {
                                       showMap(context);
                                     },),
-                                  SizedBox(width: 10,),
+                                  SizedBox(width: 5,),
                                   IconButton(
                                     tooltip: 'Call Dealer',
                                       onPressed: () => launchUrl(Uri.parse("tel:+9154718850")),
@@ -102,7 +102,7 @@ class _Results extends State<Results>{
                                         }
                                       }
                                   ),
-                                  SizedBox(width: 20,),
+                                  SizedBox(width: 5,),
                                   IconButton(
                                     color: (isPressed) ? Colors.pink : Colors.grey,
                                       onPressed: () {
