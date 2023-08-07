@@ -90,6 +90,21 @@ class _StartPage extends State<StartPage> {
                             MaterialPageRoute(builder: (context) => Account()));
                       },
                     ),
+/*
+<<<<<<< HEAD
+                    IconButton(
+                      icon: const Icon(
+                        Icons.car_crash_outlined,
+                        color: Colors.black,
+                        size: 36,
+                      ),
+                      onPressed: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => ChooseModel()));
+                      },
+                    ),
+=======
+>>>>>>> 15513df5acdf810e37341004e7004785f2a9f450 */
                   ],
                 )
             )

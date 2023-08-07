@@ -188,6 +188,18 @@ class CarTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+/*<<<<<<< HEAD
+                  IconButton(
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 36,
+                    ),
+                    onPressed: (){
+                      //Add to favorites here !!!!!
+                      notifyAddedToFavorites(context);
+                    },
+=======*/
                   FavoriteButton(
                     isFavorite: false,
                     valueChanged: (isFavorite) {
@@ -203,6 +215,7 @@ class CarTile extends StatelessWidget {
                         debugPrint("Removed");
                       }
                     }
+//>>>>>>> 5df9700bd1e6457a7d34475ac09914e4117bf543
                   ),
                   IconButton(
                     icon: Icon(
