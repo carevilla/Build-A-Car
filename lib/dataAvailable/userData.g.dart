@@ -25,6 +25,38 @@ mixin _$UserDB on userDataBase, Store {
     });
   }
 
+  late final _$builtCarsAtom =
+      Atom(name: 'userDataBase.builtCars', context: context);
+
+  @override
+  List<Car> get builtCars {
+    _$builtCarsAtom.reportRead();
+    return super.builtCars;
+  }
+
+  @override
+  set builtCars(List<Car> value) {
+    _$builtCarsAtom.reportWrite(value, super.builtCars, () {
+      super.builtCars = value;
+    });
+  }
+
+  late final _$hardcodedFavoritesAtom =
+      Atom(name: 'userDataBase.hardcodedFavorites', context: context);
+
+  @override
+  List<CarTile> get hardcodedFavorites {
+    _$hardcodedFavoritesAtom.reportRead();
+    return super.hardcodedFavorites;
+  }
+
+  @override
+  set hardcodedFavorites(List<CarTile> value) {
+    _$hardcodedFavoritesAtom.reportWrite(value, super.hardcodedFavorites, () {
+      super.hardcodedFavorites = value;
+    });
+  }
+
   late final _$userDataBaseActionController =
       ActionController(name: 'userDataBase', context: context);
 
@@ -84,9 +116,22 @@ mixin _$UserDB on userDataBase, Store {
   }
 
   @override
+  void removeFromBuiltCars(Car c) {
+    final _$actionInfo = _$userDataBaseActionController.startAction(
+        name: 'userDataBase.removeFromBuiltCars');
+    try {
+      return super.removeFromBuiltCars(c);
+    } finally {
+      _$userDataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-favorites: ${favorites}
+favorites: ${favorites},
+builtCars: ${builtCars},
+hardcodedFavorites: ${hardcodedFavorites}
     ''';
   }
 }

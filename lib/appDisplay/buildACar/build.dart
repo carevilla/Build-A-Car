@@ -1,7 +1,6 @@
 
 
 import 'package:buildacar/appDisplay/main.dart';
-import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:flutter/cupertino.dart';
@@ -77,13 +76,12 @@ class _Build extends State<Build> {
         backgroundColor: Colors.lightBlue,
       ),
       body: SafeArea(
-        right: false,
-          child: ListView(                                                      /// creates the page scrollable
-            padding: const EdgeInsets.all(15),
+        minimum: const EdgeInsets.all(15),
+          child: Column(                                                      /// creates the page scrollable
             children: [
               Container(                                                      /// shows svg of chosen model
                   height: 130,
-                  width: 150,
+                  width: 400,
                   child: modelPaint()
                 ),
               const Text("Choose your color: ",
@@ -152,23 +150,29 @@ class _Build extends State<Build> {
               Row(
                 children: [
                   const Text("Fuel-Type:  ",
-                    style: TextStyle(fontWeight: FontWeight.bold, ),),
+                    style: TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                  softWrap: false,
+                  ),
                   dropDown(fuelAvailable, "fuel"),
-                  SizedBox(width: 50,),
-                  Text(fuelSelected)
                 ],
               ),
+              SizedBox(height: 10,),
+              Text(fuelSelected, overflow: TextOverflow.ellipsis, softWrap: false,),
               const Divider(height: 5, color: Colors.grey,),
               const Divider(height: 20, color: Colors.white,),
               Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  onPressed: () {
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    onPressed: () {
 
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Results(widget.user)));
-                  },
-                  child: Text('Show Results'),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Results(widget.user)));
+                    },
+                    child: Text('Show Results'),
+                  ),
                 ),
               )
 
@@ -217,7 +221,7 @@ class _Build extends State<Build> {
       items: list.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Text(value, overflow: TextOverflow.ellipsis,),
         );
       }).toList(),
     );

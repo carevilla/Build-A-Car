@@ -6,6 +6,7 @@ import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:buildacar/firebase_options.dart';
+import 'package:provider/provider.dart';
 import 'BuiltCars.dart';
 import 'Favorites.dart';
 import 'HomePage.dart';
@@ -21,6 +22,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
+
+
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -79,7 +82,7 @@ class _StartPage extends State<StartPage> {
                     IconButton(
                       icon: Icon(
                         Icons.person,
-                        color: Colors.grey[800],
+                        color: Colors.black,
                         size: 36,
                       ),
                       onPressed: (){
@@ -87,6 +90,8 @@ class _StartPage extends State<StartPage> {
                             MaterialPageRoute(builder: (context) => Account()));
                       },
                     ),
+/*
+<<<<<<< HEAD
                     IconButton(
                       icon: const Icon(
                         Icons.car_crash_outlined,
@@ -98,6 +103,8 @@ class _StartPage extends State<StartPage> {
                             MaterialPageRoute(builder: (context) => ChooseModel()));
                       },
                     ),
+=======
+>>>>>>> 15513df5acdf810e37341004e7004785f2a9f450 */
                   ],
                 )
             )

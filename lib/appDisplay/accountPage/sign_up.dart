@@ -1,3 +1,5 @@
+/// @author Christian Revilla
+/// @author Leila Martinez
 
 import 'package:buildacar/appDisplay/accountPage/utils.dart';
 import 'package:email_validator/email_validator.dart';
@@ -7,16 +9,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-
-/*
-This class shows the Sign Up page, verifies that user set a correct email and
-password length, and signs user once they have created the account.
+/** This class shows the Sign Up page, verifies that user set a correct email and
+ *  password length, and signs user once they have created the account.
  */
-
-
 class SignUpW extends StatefulWidget{
 
-  final Function() onClickedSignUp;   // this var is used to make sure if the user was sign up and can be shown to homepage.
+  final Function() onClickedSignUp;   // makes sure if the user is signed up
 
   const SignUpW({
     Key? key,
@@ -29,27 +27,32 @@ class SignUpW extends StatefulWidget{
 }
 
 class _SignUpW extends State<SignUpW> {
-
-
-  final LoginData _loginData = LoginData();                           // creates an object of the Log in Class
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();       // a formkey that is used to save the submitted data of the user.
+  final LoginData _loginData = LoginData();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
 
+  /** Function that disposes the previously saved TextField email and password
+   * @return void
+   */
   @override
-  void dispose(){                               // disposes of the type text from the user after usage
+  void dispose(){
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
+  /** Build function to ask for users credentials during the create account phase
+   * @return Widget Build
+   * @param BuildContext context
+   */
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(                     // makes sure this pops and back button does not cause problems
-        onWillPop: () async => false,
+    return WillPopScope(
+        onWillPop: () async => false, // checks this pops and back button does not cause problems
         child: Container(
-          padding: EdgeInsets.all(50.0),
+          padding: const EdgeInsets.all(50.0),
           child: Form(
             key: _formKey,
             child: Column(
@@ -65,7 +68,7 @@ class _SignUpW extends State<SignUpW> {
                       ? ("Enter Valid Email")
                       : null,
                   onSaved: (String? inValue){                        // saves the submitted value from the user
-                    this._loginData.username = inValue!;
+                    _loginData.username = inValue!;
                   },
                   decoration: const InputDecoration(                 // hints the user of what the field is asking for
                     hintText: "none@none.com",
@@ -83,7 +86,7 @@ class _SignUpW extends State<SignUpW> {
                     return null;
                   },
                   onSaved: (String? inValue) {                      // saves the submitted value from the user
-                    this._loginData.password = inValue!;
+                    _loginData.password = inValue!;
                   },
                   decoration: const InputDecoration(                // hints the user of what the field is asking for
                     hintText: "Password",
@@ -103,16 +106,16 @@ class _SignUpW extends State<SignUpW> {
                     child: const Text("Sign Up!", style: TextStyle(fontSize: 18, color: Colors.white),),
                   ),
                 ),
-                Divider(height: 30, color: Colors.white,),
+                const Divider(height: 30, color: Colors.white,),
                 RichText(                                                                 // This Shows a text button that leads user back to the sign in page.
                     text: TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        style: const TextStyle(color: Colors.black, fontSize: 15),
                         text: 'Have an Account?   ',
                         children: [
                           TextSpan(
                             recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
                             text: 'Sign In!',
-                            style: TextStyle(color: Colors.orange, decoration: TextDecoration.underline, fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.orange, decoration: TextDecoration.underline, fontWeight: FontWeight.bold),
                           ),
                         ]
                     )
@@ -122,37 +125,41 @@ class _SignUpW extends State<SignUpW> {
           ),
         )
     );
-
-
-
   }
 
-  Future signUp() async {                                                       // method takes charge of creating user account in the Firabase
-
+  /** Sign in method that checks if user is in Firebase
+   *  @return Future Dialog box that represents either progress indicator
+   *  or email and password verification status
+   * @throws FirebaseAuthException via SnackBar format
+   */
+  Future signUp() async {
     showDialog(
-        context: this.context,
+        context: context,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator(color: Colors.lightBlue,),)     // shows indicator after sgn up.
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(
+            color: Colors.lightBlue,)
+          ,)
     );
-
     try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(           // creates user account
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
-      print(e);
-      UtilsAccount.showSnackBar(e.message);             //displays error
+      UtilsAccount.showSnackBar(e.message);
     }
-
     navigatorKey.currentState!.popUntil((route)=> route.isFirst);
   }
-
 }
 
-class LoginData {                                             // Log in Class that contains username and password
+/// Class representing the users credentials
+class LoginData {
   String username = "";
   String password = "";
 
+  /// Getters for LoginData class
+  /// @return String representing username
+  /// @return String representing password
   String get getUsername => username;
   String get getPassword => password;
 }
