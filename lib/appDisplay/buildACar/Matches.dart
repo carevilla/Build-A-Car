@@ -27,11 +27,19 @@ class CarMatches {
   }
 
   fullMatchList(){
-    fullMatchesList.addAll(sevenMatches);
-    fullMatchesList.addAll(sixMacthes);
-    fullMatchesList.addAll(fiveMatches);
-    fullMatchesList.addAll(fourMatches);
-    fullMatchesList.addAll(threeMatches);
+    helperMatch(sevenMatches);
+    helperMatch(sixMacthes);
+    helperMatch(fiveMatches);
+    helperMatch(fourMatches);
+    helperMatch(threeMatches);
+  }
+
+  helperMatch(List<Car> list){
+    for(Car car in list){
+      if(!fullMatchesList.contains(car)){
+        fullMatchesList.add(car);
+      }
+    }
   }
   
   yearList(String carModel, String selectedYear){

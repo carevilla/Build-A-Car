@@ -76,109 +76,114 @@ class _Build extends State<Build> {
         backgroundColor: Colors.lightBlue,
       ),
       body: SafeArea(
-        minimum: const EdgeInsets.all(15),
-          child: Column(                                                      /// creates the page scrollable
+        minimum: const EdgeInsets.all(10),
+          maintainBottomViewPadding: false,
+          child: ListView(
             children: [
-              Container(                                                      /// shows svg of chosen model
-                  height: 130,
-                  width: 400,
-                  child: modelPaint()
+
+              Column(                                                      /// creates the page scrollable
+              children: [
+                Container(                                                      /// shows svg of chosen model
+                    height: 130,
+                    width: 400,
+                    child: modelPaint()
+                  ),
+                const Text("Choose your color: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                Container(                                                               /// shows colors that the user can select
+                      child: SizedBox(
+                        height: 80,
+                        child: SVGColorSlider(
+                          onColorSelected: (color) => setState(() => colorCode = color),
+                        ),
+                      )
                 ),
-              const Text("Choose your color: ",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-              Container(                                                               /// shows colors that the user can select
-                    child: SizedBox(
-                      height: 80,
-                      child: SVGColorSlider(
-                        onColorSelected: (color) => setState(() => colorCode = color),
-                      ),
-                    )
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Center(
-                child: Row(                                                                       /// row shows text and button to pick year wanted
+                const Divider(height: 5, color: Colors.grey,),
+                Center(
+                  child: Row(                                                                       /// row shows text and button to pick year wanted
+                    children: [
+                      const Text("Year:    ",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                      dropDown(carsListDB.showAvailableYears(widget.model), "year"),
+                      SizedBox(width: 50,),
+                      Text(yearSelected, overflow: TextOverflow.fade,)
+                    ],
+                  ),
+                ),
+                const Divider(height: 5, color: Colors.grey,),
+                Row(                                                              /// Row chose text and button to choose model
                   children: [
-                    const Text("Year:    ",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                    dropDown(carsListDB.showAvailableYears(widget.model), "year"),
+                    const Text("Make:   ",
+                      style: TextStyle(fontWeight: FontWeight.bold, ),),
+                    dropDown(makesAvailable, "make"),
                     SizedBox(width: 50,),
-                    Text(yearSelected, overflow: TextOverflow.fade,)
+                    Text(makeSelected)
                   ],
                 ),
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Row(                                                              /// Row chose text and button to choose model
-                children: [
-                  const Text("Make:   ",
-                    style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  dropDown(makesAvailable, "make"),
-                  SizedBox(width: 50,),
-                  Text(makeSelected)
-                ],
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Row(
-                children: [
-                  const Text("Model:  ",
-                    style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  dropDown(modelsAvailable, "model"),
-                  SizedBox(width: 50,),
-                  Text(modelSelected)
-                ],
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Row(
-                children: [
-                  const Text("Doors:   ",
-                    style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  dropDown(doorsAvailable, "doors"),
-                  SizedBox(width: 50,),
-                  Text(doorsSelected)
-                ],
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Row(
-                children: [
-                  const Text("Drive:    ",
-                    style: TextStyle(fontWeight: FontWeight.bold, ),),
-                  dropDown(driveAvailable, "drive"),
-                  SizedBox(width: 50,),
-                  Text(driveSelected)
-                ],
-              ),
-              const Divider(height: 5, color: Colors.grey,),
-              Row(
-                children: [
-                  const Text("Fuel-Type:  ",
-                    style: TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
-                  softWrap: false,
-                  ),
-                  dropDown(fuelAvailable, "fuel"),
-                ],
-              ),
-              SizedBox(height: 10,),
-              Text(fuelSelected, overflow: TextOverflow.ellipsis, softWrap: false,),
-              const Divider(height: 5, color: Colors.grey,),
-              const Divider(height: 20, color: Colors.white,),
-              Center(
-                child: Container(
-                  height: 50,
-                  width: 150,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
-                    onPressed: () {
-
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Results(widget.user)));
-                    },
-                    child: Text('Show Results'),
-                  ),
+                const Divider(height: 5, color: Colors.grey,),
+                Row(
+                  children: [
+                    const Text("Model:  ",
+                      style: TextStyle(fontWeight: FontWeight.bold, ),),
+                    dropDown(modelsAvailable, "model"),
+                    SizedBox(width: 50,),
+                    Text(modelSelected)
+                  ],
                 ),
-              )
+                const Divider(height: 5, color: Colors.grey,),
+                Row(
+                  children: [
+                    const Text("Doors:   ",
+                      style: TextStyle(fontWeight: FontWeight.bold, ),),
+                    dropDown(doorsAvailable, "doors"),
+                    SizedBox(width: 50,),
+                    Text(doorsSelected)
+                  ],
+                ),
+                const Divider(height: 5, color: Colors.grey,),
+                Row(
+                  children: [
+                    const Text("Drive:    ",
+                      style: TextStyle(fontWeight: FontWeight.bold, ),),
+                    dropDown(driveAvailable, "drive"),
+                    SizedBox(width: 50,),
+                    Text(driveSelected)
+                  ],
+                ),
+                const Divider(height: 5, color: Colors.grey,),
+                Row(
+                  children: [
+                    const Text("Fuel-Type:  ",
+                      style: TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                    softWrap: false,
+                    ),
+                    dropDown(fuelAvailable, "fuel"),
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Text(fuelSelected, overflow: TextOverflow.ellipsis, softWrap: false,),
+                const Divider(height: 5, color: Colors.grey,),
+                const Divider(height: 10, color: Colors.white,),
+                Center(
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                      onPressed: () {
 
-            ]),
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Results(widget.user)));
+                      },
+                      child: Text('Show Results'),
+                    ),
+                  ),
+                )
+              ]),
+           ]
+          ),
           )
-      );
+        );
   }
 
   @override
