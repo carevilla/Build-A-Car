@@ -10,7 +10,9 @@ abstract class userDataBase with Store {
 
   @observable
   List<Car> favorites = [];
+  @observable
   List<Car> builtCars = [];
+  @observable
   List<CarTile> hardcodedFavorites = [];
 
   @action
@@ -36,6 +38,11 @@ abstract class userDataBase with Store {
   @action
   void removeFromFavorites(Car c){
     favorites.remove(c);
+  }
+
+  @action
+  void removeFromBuiltCars(Car c){
+    builtCars.remove(c);
   }
 
 }
