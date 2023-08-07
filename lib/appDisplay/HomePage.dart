@@ -8,6 +8,7 @@ import '../carTabs/suv_tab.dart';
 import '../carTabs/truck_tab.dart';
 import '../carTabs/van_tab.dart';
 import '../utilsTab/vehicle_tab.dart';
+import 'buildACar/choose_model.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -17,6 +18,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,22 +53,22 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           children: [
             // Text Welcome to Build-A-Car
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 36.0 , vertical: 18),
-              child: Row(
-                children: [
-                  Text(
-                    'Search ',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    'BUILD-A-CAR',
-                    style: TextStyle(fontSize: 32 , fontWeight: FontWeight.bold),
-                  )
-                ], // children
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: searchBar(context),
+            ),
+            Container(
+              height: 40,
+              width: 250,
+              child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ChooseModel()));
+                  },
+                  child: Text("Build Your Own"),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 10),
 
             //Tab Bar
             TabBar(
@@ -99,4 +102,32 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget searchBar(BuildContext context){
+
+    return Container(
+      height: 45,
+      child: TextField(
+        controller: _searchController,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(8.0),
+          hintText: 'Search...',
+          // Add a clear button to the search bar
+          suffixIcon: IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: () => _searchController.clear(),
+          ),
+          // Add a search icon or button to the search bar
+          prefixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Perform the search here
+            },
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
+    );
+  }
 }

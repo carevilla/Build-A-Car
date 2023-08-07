@@ -48,7 +48,7 @@ class _LoginW extends State<LoginW> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(50.0),
+      padding: EdgeInsets.all(30.0),
       child: Form(
         key: _formKey,
         child: Column(
