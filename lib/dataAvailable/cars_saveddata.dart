@@ -1,4 +1,5 @@
-
+/// @author Christian Revilla
+/// @author Leila Martinez
 
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:mobx/mobx.dart';
@@ -6,10 +7,10 @@ import '../serverCalls/car.dart';
 
 part 'cars_saveddata.g.dart';
 
+/// Class to call list throughout the entire app
 class CarListDB = CarsListDataBase with _$CarListDB;
 
 abstract class CarsListDataBase with Store {
-
   @observable
   List<Car> trucksList = <Car>[];
   List<Car> sportList = <Car>[];
@@ -18,9 +19,12 @@ abstract class CarsListDataBase with Store {
   List<Car> familyCarList = <Car>[];
 
 
+  /** Function to match the model of vehicle and add the year of that vehicle
+   * @return List<String> representing the years in a Set for observable data
+   * @param String carModel representing the vehcile type to search for
+   */
   @action
   List<String> showAvailableYears(String carModel){
-
     Set<String> tempYears = {};
 
     if(carModel == "familyCar"){
@@ -47,9 +51,13 @@ abstract class CarsListDataBase with Store {
     return tempYears.toList();
   }
 
+  /** Function to match the model of vehicle and year and add to obserable data
+   * @return List<Car> representing the cars that match the carModel and year
+   * @param String carModel representing the vehcile type to search for
+   * @param String selectedYear representing the year of vehicle to search for
+   */
   @action
   List<Car> listOfCarsByYear(String carModel, String selectedYear){
-
     List<Car> tempYear = [];
 
     if(carModel == "familyCar"){
@@ -87,9 +95,13 @@ abstract class CarsListDataBase with Store {
     return tempYear;
   }
 
+  /** Function to match the model of vehicle and year and add to obserable data
+   * @return List<Car> representing the cars that match the carModel and year
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   */
   @action
   List<String> showMake(String carModel, String yearSelected){
-
     Set<String> temp = {};
 
     if(carModel == "familyCar"){
@@ -123,15 +135,17 @@ abstract class CarsListDataBase with Store {
         }
       }
     }
-
-
     return temp.toList();
-
   }
 
+  /** Function to match the data and add to obserable data
+   * @return List<String> representing cars model that match the carModel, year, make
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   * @param String make representing the make of vehicle to search for
+   */
   @action
   List<String> showModels(String carModel, String year, String make){
-
     Set<String> temp = {};
 
     if(carModel == "familyCar"){
@@ -165,11 +179,16 @@ abstract class CarsListDataBase with Store {
         }
       }
     }
-
     return temp.toList();
-
   }
 
+  /** Function to match the data and add to obserable data
+   * @return List<String> representing cars doors that match parameters
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   * @param String make representing the make of vehicle to search for
+   * @param String model representing the model of vehicle to seach for
+   */
   @action
   List<String> showDoors(String carModel, String year, String make, String model){
     Set<String> temp = {};
@@ -208,6 +227,13 @@ abstract class CarsListDataBase with Store {
     return temp.toList();
   }
 
+  /** Function to match the data and add to obserable data
+   * @return List<String> representing cars drive that match parameters
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   * @param String make representing the make of vehicle to search for
+   * @param String model representing the model of vehicle to seach for
+   */
   @action
   List<String> showDrive(String carModel, String year, String make, String model){
     Set<String> temp = {};
@@ -246,6 +272,13 @@ abstract class CarsListDataBase with Store {
     return temp.toList();
   }
 
+  /** Function to match the data and add to obserable data
+   * @return List<String> representing cars FuelType that match parameters
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   * @param String make representing the make of vehicle to search for
+   * @param String model representing the model of vehicle to seach for
+   */
   @action
   List<String> showFuelType(String carModel, String year, String make, String model){
     Set<String> temp = {};
@@ -284,6 +317,17 @@ abstract class CarsListDataBase with Store {
     return temp.toList();
   }
 
+  /** Function to match the data and add to obserable data
+   * @return List<String> representing cars that match parameters
+   * @param String carModel representing the vehcile type to search for
+   * @param String yearsSelected representing the year of vehicle to search for
+   * @param String make representing the make of vehicle to search for
+   * @param String model representing the model of vehicle to search for
+   * @param String fuelType representing the fuelType of vehicle to search for
+   * @param String drive representing the drive of vehicle to search for
+   * @param String doors representing the doors of vehicle to search for
+   * @param String years representing the years of vehicle to search for
+   */
   @action
   List<Car> showResults(String carModel, String color, String make, String model, String fuelType, String drive, String doors, String year){
 
@@ -330,11 +374,8 @@ abstract class CarsListDataBase with Store {
         }
       }
     }
-
     return results;
-
   }
-
 }
 
 
