@@ -1,4 +1,5 @@
-
+/// @author Christian Revilla
+/// @author Leila Martinez
 
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:favorite_button/favorite_button.dart';
@@ -9,8 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'Matches.dart';
 
-class Results extends StatefulWidget{
 
+class Results extends StatefulWidget{
   late UserChoices user;
 
   Results(UserChoices u){
@@ -19,29 +20,33 @@ class Results extends StatefulWidget{
 
   @override
   State<Results> createState() => _Results();
-
 }
 
-
+/// Class to represent Results Page after build process is complete
 class _Results extends State<Results>{
 
+  /** Build for the results page
+   * Returns a ListView with the vehicles in order from most ot least matches
+   * @return Widget representing The list of cars from API in result page
+   * @param BuildContext context
+   */
   @override
   Widget build(BuildContext context) {
     CarMatches matchLists = CarMatches(widget.user);
     return Scaffold(
       backgroundColor: Colors.indigo,
-      appBar: AppBar(title: Text("Results Page"),
+      appBar: AppBar(title: const Text("Results Page"),
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: ListView.builder(
           shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           itemCount: matchLists.fullMatchesList.length,
           itemBuilder: (BuildContext context, int index){
             bool isPressed = false;
             return Container(
-              padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
               height: 170,
               child: Card(
                 color: Colors.white,
@@ -54,32 +59,32 @@ class _Results extends State<Results>{
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.garage_sharp, color: toColor(matchLists.fullMatchesList[index].getColor), size: 100,),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('\$50,000', style: TextStyle(fontSize: 20),),
+                              const Text('\$50,000', style: TextStyle(fontSize: 20),),
                               Text('${matchLists.fullMatchesList[index].getMake} ${matchLists.fullMatchesList[index].getModel}', style: TextStyle(color: Colors.black),),
                               Text('Doors: ${matchLists.fullMatchesList[index].getDoors}'),
                               Text('Color: ${matchLists.fullMatchesList[index].getColor}'),
                             ],
                           ),
-                          SizedBox(width: 20,),
+                          const SizedBox(width: 20,),
                           Column(
                             children: [
                               Row(
                                 children: [
                                   IconButton(
-                                    icon: Icon(Icons.location_on_outlined, color: Colors.black),
+                                    icon: const Icon(Icons.location_on_outlined, color: Colors.black),
                                     onPressed: () {
                                       showMap(context);
                                     },),
-                                  SizedBox(width: 5,),
+                                  const SizedBox(width: 5,),
                                   IconButton(
                                     tooltip: 'Call Dealer',
                                       onPressed: () => launchUrl(Uri.parse("tel:+9154718850")),
-                                      icon: Icon(Icons.phone, color: Colors.black,)
+                                      icon: const Icon(Icons.phone, color: Colors.black,)
                                   ),
                                 ],
                               ),
@@ -102,7 +107,7 @@ class _Results extends State<Results>{
                                         }
                                       }
                                   ),
-                                  SizedBox(width: 5,),
+                                  const SizedBox(width: 5,),
                                   IconButton(
                                     color: (isPressed) ? Colors.pink : Colors.grey,
                                       onPressed: () {
@@ -122,7 +127,7 @@ class _Results extends State<Results>{
                                         });
 
                                       },
-                                      icon: Icon(Icons.library_add_check)
+                                      icon: const Icon(Icons.library_add_check)
                                   )
                                 ],
                               )
@@ -132,13 +137,13 @@ class _Results extends State<Results>{
                       ),
                       Row(
                         children: [
-                          Icon(Icons.circle_outlined, color: Colors.black,),
+                          const Icon(Icons.circle_outlined, color: Colors.black,),
                           Text('Drive: ${matchLists.fullMatchesList[index].getDrive}'),
                         ],
                       ),
                       Row(
                         children: [
-                          Icon(Icons.gas_meter_outlined, color: Colors.black,),
+                          const Icon(Icons.gas_meter_outlined, color: Colors.black,),
                           Text('FuelType: ${matchLists.fullMatchesList[index].getFuelType}',)
                         ],
                       ),
@@ -152,6 +157,10 @@ class _Results extends State<Results>{
     );
   }
 
+  /** Function to convert from String to Colors
+   * @return Color representing Color of vehicle
+   * @param String representing the color to be converted
+   */
   Color toColor(String c){
     Color color = Colors.white;
     switch(c){
@@ -161,10 +170,13 @@ class _Results extends State<Results>{
       case 'Red' : color = Colors.red;
       case 'Blue': color = Colors.blue;
     }
-
     return color;
   }
 
+  /** Function to open up map image when user clicks info button
+   * @return Future AlertBox representing map image
+   * @param BuildContext context
+   */
   Future showMap(context){
     return showDialog(
       context: context,
@@ -183,13 +195,17 @@ class _Results extends State<Results>{
     );
   }
 
+  /** Function to notify user that the vehicle is already in their favorites
+   * @return Future AlertBox notify user vehicle is alrady in favorite
+   * @param BuildContext context
+   */
   Future alreadyFavoritedNotification(context){
     return showDialog(
       context: context,
       builder: (context) =>
           AlertDialog(
             title: const Text('Favorite'),
-            content: Text('Already in favorites'),
+            content: const Text('Already in favorites'),
             actions: [
               TextButton(
                   onPressed: () {
