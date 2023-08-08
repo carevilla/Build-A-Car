@@ -1,10 +1,13 @@
-
+///@author Leila Martinez
+///@author Christian Revilla
 
 import 'package:flutter/material.dart';
 
+
 /**
-Class stores the map of colors shown to the user to change the color of the cars svg.
- */
+* Class stores the map of colors shown to the user to change the color of the cars svg.
+ * 
+ * */
 
 /// A Custom Slider that returns SVG colors and shades.
 class SVGColorSlider extends StatelessWidget {
