@@ -158,14 +158,16 @@ class _Favorites extends State<Favorites> {
                               Text('\$${userDB.hardcodedFavorites[index].carPrice}')
                             ],
                           ),
-                          SizedBox(width: 40,),
+                          SizedBox(width: 25,),
                           IconButton(
                             icon: Icon(Icons.location_on_outlined, color: Colors.black),
                             onPressed: () {
                               userDB.hardcodedFavorites[index].showMap(context);
                             },),
-                          SizedBox(width: 10,),
-                          Icon(Icons.phone, color: Colors.black)
+                          IconButton(
+                              onPressed: () => launchUrl(Uri.parse("tel:+9154718850")),
+                              icon: Icon(Icons.phone, color: Colors.black,)
+                          ),
                         ],
                       )
                     ],
@@ -232,7 +234,7 @@ class _Favorites extends State<Favorites> {
                           SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
-                              content : Text("Note deleted")
+                              content : Text("Car deleted")
                           )
                       );
                     }
@@ -264,7 +266,7 @@ class _Favorites extends State<Favorites> {
                           SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
-                              content : Text("Note deleted")
+                              content : Text("Car deleted")
                           )
                       );
                     }

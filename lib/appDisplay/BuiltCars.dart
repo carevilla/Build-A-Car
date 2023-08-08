@@ -219,7 +219,7 @@ class _BuiltCars extends State<BuiltCars> {
                           SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
-                              content : Text("Note deleted")
+                              content : Text("Car deleted")
                           )
                       );
                     }

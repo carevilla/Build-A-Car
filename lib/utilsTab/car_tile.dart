@@ -5,6 +5,7 @@ import 'package:buildacar/appDisplay/main.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Class that represents the cars on the homepage
 class CarTile extends StatelessWidget {
@@ -131,10 +132,13 @@ class CarTile extends StatelessWidget {
                       title: Text('Price \$$carPrice'),
                       trailing: const Icon(Icons.attach_money),
                     ),
-                    const ListTile(
+                    ListTile(
                       leading: Icon(Icons.house),
                       title: Text('Dealership near you 31 miles away!'),
-                      trailing: Icon(Icons.add_ic_call)
+                      trailing: IconButton(
+                          onPressed: () => launchUrl(Uri.parse("tel:+9154718850")),
+                          icon: Icon(Icons.phone, color: Colors.black,)
+                      ),
                     ),
                   ],
                 ),
