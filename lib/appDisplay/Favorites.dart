@@ -140,6 +140,8 @@ class _Favorites extends State<Favorites> {
         padding: const EdgeInsets.all(8),
         itemCount: userDB.hardcodedFavorites.length,
         itemBuilder: (BuildContext context, int index) {
+          /*
+<<<<<<< HEAD
           return Slidable(
             endActionPane: ActionPane(
               extentRatio: .25,
@@ -189,6 +191,61 @@ class _Favorites extends State<Favorites> {
                       ],
                     )
                   ],
+=======*/
+          return Container(
+            child: Slidable(
+              endActionPane: ActionPane(
+                extentRatio: .25,
+                motion: ScrollMotion(),
+                children: <Widget>[
+                  SlidableAction(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    label: "Delete",
+                    icon: Icons.delete,
+                    onPressed: (ctx) =>
+                        _deleteHardcodedCar(context, userDB.hardcodedFavorites[index]),
+                  )
+                ],
+              ),
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 115,
+                            height: 115,
+                            child: Image.asset(userDB.hardcodedFavorites[index].carImage, fit: BoxFit.cover,),
+                          ),
+                          SizedBox(width: 15,),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${userDB.hardcodedFavorites[index].carMake} ${userDB.hardcodedFavorites[index].carModel}', style: TextStyle(color: Colors.black),),
+                              Text('\$${userDB.hardcodedFavorites[index].carPrice}')
+                            ],
+                          ),
+                          SizedBox(width: 25,),
+                          IconButton(
+                            icon: Icon(Icons.location_on_outlined, color: Colors.black),
+                            onPressed: () {
+                              userDB.hardcodedFavorites[index].showMap(context);
+                            },),
+                          IconButton(
+                              onPressed: () => launchUrl(Uri.parse("tel:+9154718850")),
+                              icon: Icon(Icons.phone, color: Colors.black,)
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+//>>>>>>> 9b020bc9956fdb27f4747ff9bc4c53ad80d474c1
                 ),
               ),
             ),
@@ -263,7 +320,7 @@ class _Favorites extends State<Favorites> {
                           const SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
-                              content : Text("Note deleted")
+                              content : Text("Car deleted")
                           )
                       );
                     }
@@ -300,7 +357,7 @@ class _Favorites extends State<Favorites> {
                           const SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
-                              content : Text("Note deleted")
+                              content : Text("Car deleted")
                           )
                       );
                     }

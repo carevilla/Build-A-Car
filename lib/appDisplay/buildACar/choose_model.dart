@@ -1,10 +1,15 @@
+///@author Leila Martinez
+///@author Christian Revilla
+
 
 import 'package:buildacar/appDisplay/buildACar/build.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Class takes care of displaying a page to the user where they can select a car model
-/// they would like to build.
+/**
+ * Class takes care of displaying a page to the user where they can select a car model
+ * they would like to build.
+ */
 class ChooseModel extends StatefulWidget {
   const ChooseModel({super.key});
 
@@ -14,7 +19,11 @@ class ChooseModel extends StatefulWidget {
 
 class _ChooseModel extends State<ChooseModel> {
 
-
+  /**
+   * Returns the widgets for Choose Model, this page is the
+   * @param BuildContext
+   * @return Widget - Contains all the widgets presenting on the screen to the user. Icon buttons presenting each model they can build.
+   */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +35,11 @@ class _ChooseModel extends State<ChooseModel> {
       body: Container(
         child: Stack(
           children: [
-            GridView.count(                               /// Uses a grid to show the models on the page
+            GridView.count(
               primary: false,
               crossAxisCount: 2,
               children: <Widget> [
-                Column(                                   /// contains image and text for 'Family Car'
+                Column(
                   children: [
                     Container(
                       height: 140,
@@ -51,7 +60,7 @@ class _ChooseModel extends State<ChooseModel> {
                     Text("Family Car", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ],
                 ),
-                Column(                                               /// contains image and text for 'Sports Car'
+                Column(
                   children: [
                     Container(
                       height: 140,
@@ -72,7 +81,7 @@ class _ChooseModel extends State<ChooseModel> {
                     Text("Sports Car", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ],
                 ),
-                Column(                                                 /// contains image and text for 'SUV'
+                Column(
                   children: [
                     Container(
                       height: 140,
@@ -93,7 +102,7 @@ class _ChooseModel extends State<ChooseModel> {
                     Text("SUV", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ],
                 ),
-                Column(                                                 /// contains image and text for 'Truck'
+                Column(
                   children: [
                     Container(
                       height: 140,
@@ -114,7 +123,7 @@ class _ChooseModel extends State<ChooseModel> {
                     Text("Truck", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                   ],
                 ),
-                Column(                                                   /// contains image and text for 'Van'
+                Column(
                   children: [
                     Container(
                       height: 140,

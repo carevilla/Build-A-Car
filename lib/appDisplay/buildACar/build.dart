@@ -1,3 +1,5 @@
+/// @author Leila Martinez
+/// @author Christian Revilla
 
 
 import 'package:buildacar/appDisplay/main.dart';
@@ -9,16 +11,17 @@ import 'package:flutter/material.dart';
 import 'Results.dart';
 import 'colors.dart';
 
-/// Class shows the build your own car page to the user.
-/// This is where they chose the model, color of the car.
 
-
+/**
+ * Class shows the build your own car page to the user.
+ * This is where they chose the model, color of the car.
+ */
 class Build extends StatefulWidget{
 
   String model ='';
   UserChoices user = UserChoices();
 
-  Build(String m,){                                                              /// receives model chosen by user
+  Build(String m,){
     model = m;
   }
 
@@ -45,8 +48,12 @@ class _Build extends State<Build> {
   List<String> driveAvailable = [];
   List<String> fuelAvailable = [];
 
+  /**
+   * Sets current state of list and text values.
+   * @return void
+   */
   @override
-  update(){                                                          /// updates button to show the selected year
+  update(){
     setState(() {
       yearSelected = widget.user.getYear;
       makeSelected = widget.user.getMake;
@@ -64,6 +71,12 @@ class _Build extends State<Build> {
     });
   }
 
+
+  /**
+   * This shows Build Your Own Car Page with car svg, changing colors, and car questions.
+   * @param context
+   * @return Widget - Widget respreseting the Build Your Own car Page
+   */
   @override
   Widget build(BuildContext context) {
     widget.user.setCarType = widget.model;
@@ -81,16 +94,16 @@ class _Build extends State<Build> {
           child: ListView(
             children: [
 
-              Column(                                                      /// creates the page scrollable
+              Column(
               children: [
-                Container(                                                      /// shows svg of chosen model
+                Container(
                     height: 130,
                     width: 400,
                     child: modelPaint()
                   ),
                 const Text("Choose your color: ",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                Container(                                                               /// shows colors that the user can select
+                Container(
                       child: SizedBox(
                         height: 80,
                         child: SVGColorSlider(
@@ -100,7 +113,7 @@ class _Build extends State<Build> {
                 ),
                 const Divider(height: 5, color: Colors.grey,),
                 Center(
-                  child: Row(                                                                       /// row shows text and button to pick year wanted
+                  child: Row(
                     children: [
                       const Text("Year:    ",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
@@ -111,7 +124,7 @@ class _Build extends State<Build> {
                   ),
                 ),
                 const Divider(height: 5, color: Colors.grey,),
-                Row(                                                              /// Row chose text and button to choose model
+                Row(
                   children: [
                     const Text("Make:   ",
                       style: TextStyle(fontWeight: FontWeight.bold, ),),
@@ -186,6 +199,12 @@ class _Build extends State<Build> {
         );
   }
 
+  /**
+   * Shows dropdown widget with the list of options from the API database
+   * @param List<String> - represents the list of models, makes, number of doors, etc
+   * @param String - reprents what questions/option the user is selecting for to set state to text.
+   * @return Widget - dropdown menu
+   */
   @override
   Widget dropDown(List<String> list, String selectingOption) {
     list.add("Select Option...");
@@ -232,38 +251,13 @@ class _Build extends State<Build> {
     );
   }
 
-  void pickYear(UserChoices user, DateTime selectedDate,) {                        /// source https://stackoverflow.com/questions/62022135/how-to-only-display-the-year-in-datepicker-for-flutter
+  /**
+   * Calls Paint Class depending on what model the user choose. Paint class shows svg.
+   * @return Widget - returns svg picture of the model the user selected.
+   */
+  Widget modelPaint () {
 
-                                                                                 /// We used the source above to learn how to only select year and make the year scrollable.
-    showDialog(                                                                 /// Some changes where made such as size, the years provided, and we added the code to update user's selection
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Select Year"),
-          content: Container( // Need to use container to add size constraint.
-            width: 200,
-            height: 200,
-            child: YearPicker(                                                  /// This creates a lis of years starting from 2023 (Now) to 100 years back
-              firstDate: DateTime(DateTime.now().year - 100, 1),
-              lastDate: DateTime(DateTime.now().year, 1),
-              initialDate: DateTime.now(),
-              selectedDate: selectedDate,
-              onChanged: (DateTime dateTime) {
-                // close the dialog when year is selected.
-                user.setYear = dateTime.year.toString();                                   /// user choices are saved into the user class
-                user.setDate = dateTime;
-                Navigator.pop(context);                                         /// Alert Dialog is removed
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget modelPaint () {                                                        /// Method checks what model of car the user selected and shows the correct svg widget.
-
-    if(widget.model == 'familyCar') {                                                 /// shows car svg
+    if(widget.model == 'familyCar') {
       return PainterCar(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -272,7 +266,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if (widget.model == 'sport') {                                       /// shows sport car svg
+    } else if (widget.model == 'sport') {
       return PainterSport(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -281,7 +275,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'suv'){                                           /// shows suv svg
+    } else if(widget.model == 'suv'){
       return PainterSUV(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -290,7 +284,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'truck'){                                         /// shows truck svg
+    } else if(widget.model == 'truck'){
       return PainterTruck(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -299,7 +293,7 @@ class _Build extends State<Build> {
             ? colorCode.split('.')[1].split(':')[1]
             : '#FFF35A',
       );
-    } else if(widget.model == 'van'){                                           /// shows van svg
+    } else if(widget.model == 'van'){
       return PainterVan(
         color: colorCode.isNotEmpty
             ? colorCode.split('.')[1].split(':')[0]
@@ -309,7 +303,11 @@ class _Build extends State<Build> {
             : '#FFF35A',
       );
     } else {
+/*<<<<<<< HEAD
       return const Text('Not Available');                                             /// shows error message
+=======*/
+      return const Text('Not Available');
+//>>>>>>> 9b020bc9956fdb27f4747ff9bc4c53ad80d474c1
     }
   }
 }
