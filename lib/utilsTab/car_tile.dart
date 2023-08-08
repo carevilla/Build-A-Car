@@ -1,8 +1,12 @@
+/// @author Christian Revilla
+/// @author Leila Martinez
+
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
 
+/// Class that represents the cars on the homepage
 class CarTile extends StatelessWidget {
   final String carMake;
   final String carModel;
@@ -19,6 +23,11 @@ class CarTile extends StatelessWidget {
     required this.carImage,
   });
 
+  /** Function to show a map image when the map icon ping is clicked
+   *  Location services to be implemented later
+   *  @return Future AlertBox with map image
+   *  @param BuildContext context
+   */
   Future showMap(context){
     return showDialog(
       context: context,
@@ -37,6 +46,10 @@ class CarTile extends StatelessWidget {
     );
   }
 
+  /** Function to notify vehicle was added to favorites list
+   *  @return Future AlertBox notifying vehcile added to favorites
+   *  @param BuildContext context
+   */
   Future notifyAddedToFavorites(context){
     return showDialog(
       context: context,
@@ -55,6 +68,10 @@ class CarTile extends StatelessWidget {
     );
   }
 
+  /** Function to notify vehicle was already in favorites list
+   *  @return Future AlertBox notifying vehcile already in favorites
+   *  @param BuildContext context
+   */
   Future alreadyFavoritedNotification(context){
     return showDialog(
       context: context,
@@ -73,7 +90,13 @@ class CarTile extends StatelessWidget {
     );
   }
 
-  showCarInfo(context){
+  /** Function to show additional information about specific vehicle
+   * called when info icon is clicked from homepage
+   * shows make, model, price, location, and phone number
+   * @return void
+   * @param BuildContext context
+   */
+  void showCarInfo(context){
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -121,6 +144,12 @@ class CarTile extends StatelessWidget {
     );
   }
 
+  /** Build function that represents each car tile on homepage
+   * A tile has the car image, make, model, and price associated with it
+   * has a favorites and information icon button
+   * @return Widget Showing the car tile on homepage
+   * @param BuildContext context
+   */
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -188,18 +217,6 @@ class CarTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-/*<<<<<<< HEAD
-                  IconButton(
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 36,
-                    ),
-                    onPressed: (){
-                      //Add to favorites here !!!!!
-                      notifyAddedToFavorites(context);
-                    },
-=======*/
                   FavoriteButton(
                     isFavorite: false,
                     valueChanged: (isFavorite) {
@@ -215,7 +232,6 @@ class CarTile extends StatelessWidget {
                         debugPrint("Removed");
                       }
                     }
-//>>>>>>> 5df9700bd1e6457a7d34475ac09914e4117bf543
                   ),
                   IconButton(
                     icon: Icon(
