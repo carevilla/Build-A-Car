@@ -1,3 +1,5 @@
+/// @author Christian Revilla
+/// @author Leila Martinez
 
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
@@ -19,23 +21,28 @@ class BuiltCars extends StatefulWidget {
 
 class _BuiltCars extends State<BuiltCars> {
 
+  /** Function that displays all vehicles in the BuiltCar List
+   * Built via ListView,
+   * each has slideable delete option,information, and icons associated with them
+   * @return Widget displaying the List in BuiltCar List
+   * @param BuildContext context
+   */
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.indigo,
         body: ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: userDB.builtCars.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                 height: 170,
                 child: Slidable(
                   endActionPane: ActionPane(
                     extentRatio: .25,
-                    motion: ScrollMotion(),
+                    motion: const ScrollMotion(),
                     children: <Widget>[
                       SlidableAction(
                         backgroundColor: Colors.red,
@@ -61,36 +68,36 @@ class _BuiltCars extends State<BuiltCars> {
                               Icon(Icons.garage_sharp, color: toColor(
                                   userDB.builtCars[index].getColor),
                                 size: 100,),
-                              SizedBox(width: 5,),
+                              const SizedBox(width: 5,),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     '\$50,000', style: TextStyle(fontSize: 20),),
                                   Text('${userDB.builtCars[index].getMake} ${userDB.builtCars[index].getModel}',
-                                    style: TextStyle(color: Colors.black),),
+                                    style: const TextStyle(color: Colors.black),),
                                   Text('Doors: ${userDB.builtCars[index].getDoors}'),
                                   Text('Color: ${userDB.builtCars[index].getColor}'),
                                 ],
                               ),
-                              SizedBox(width: 40,),
+                              const SizedBox(width: 40,),
                               Column(
                                 children: [
                                   Row(
                                     children: [
                                       IconButton(
-                                        icon: Icon(Icons.location_on_outlined,
+                                        icon: const Icon(Icons.location_on_outlined,
                                             color: Colors.black),
                                         onPressed: () {
                                           showMap(context);
                                         },),
-                                      SizedBox(width: 10,),
+                                      const SizedBox(width: 10,),
                                       IconButton(
                                           tooltip: 'Call Dealer',
                                           onPressed: () =>
                                               launchUrl(Uri.parse("tel:+9154718850")),
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.phone, color: Colors.black,)
                                       ),
                                     ],
@@ -114,7 +121,7 @@ class _BuiltCars extends State<BuiltCars> {
                                             }
                                           }
                                       ),
-                                      SizedBox(width: 20,),
+                                      const SizedBox(width: 20,),
                                     ],
                                   )
                                 ],
@@ -123,14 +130,14 @@ class _BuiltCars extends State<BuiltCars> {
                           ),
                           Row(
                             children: [
-                              Icon(Icons.circle_outlined, color: Colors.black,),
+                              const Icon(Icons.circle_outlined, color: Colors.black,),
                               Text('Drive: ${userDB.builtCars[index]
                                   .getDrive}'),
                             ],
                           ),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.gas_meter_outlined, color: Colors.black,),
                               Text('FuelType: ${userDB.builtCars[index]
                                   .getFuelType}',)
@@ -147,6 +154,10 @@ class _BuiltCars extends State<BuiltCars> {
     );
   }
 
+  /** Function to convert String to Colors to implement
+   * @return Color to be used in database
+   * @param String representing what color
+   */
   Color toColor(String c){
     Color color = Colors.white;
     switch(c){
@@ -160,6 +171,10 @@ class _BuiltCars extends State<BuiltCars> {
     return color;
   }
 
+  /** Function to display map image via AlertBox
+   * @return Future AlertBox showing map image
+   * @param BuildContext context
+   */
   Future showMap(context){
     return showDialog(
       context: context,
@@ -178,13 +193,17 @@ class _BuiltCars extends State<BuiltCars> {
     );
   }
 
+  /** Function to notify vehicle already in favorites via AlertBox
+   * @return Future AlertBox showing car already favorited
+   * @param BuildContext context
+   */
   Future alreadyFavoritedNotification(context){
     return showDialog(
       context: context,
       builder: (context) =>
           AlertDialog(
             title: const Text('Favorite'),
-            content: Text('Already in favorites'),
+            content: const Text('Already in favorites'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -197,26 +216,31 @@ class _BuiltCars extends State<BuiltCars> {
   }
 
 
+  /** Function to ask user if he wants to delete from List via AlertBox
+   * Once confirmed vehicle is removed from List
+   * @param BuildContext context
+   * @param Car representing the vehicle that will be removed
+   */
   _deleteCar(BuildContext context, Car car) {
     return showDialog(
         context : context,
         barrierDismissible : false,
         builder : (BuildContext alertContext) {
           return AlertDialog(
-              title : Text("Delete Built Car"),
-              content : Text("Are you sure you want to delete?"),
+              title : const Text("Delete Built Car"),
+              content : const Text("Are you sure you want to delete?"),
               actions : [
-                TextButton(child : Text("Cancel"),
+                TextButton(child : const Text("Cancel"),
                     onPressed: () => Navigator.of(alertContext).pop()
                 ),
-                TextButton(child : Text("Delete"),
+                TextButton(child : const Text("Delete"),
                     onPressed : () {
 
                       userDB.removeFromBuiltCars(car);
 
                       Navigator.of(alertContext).pop();
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                               backgroundColor : Colors.red,
                               duration : Duration(seconds : 2),
                               content : Text("Note deleted")
@@ -228,5 +252,4 @@ class _BuiltCars extends State<BuiltCars> {
         }
     );
   }
-
 }

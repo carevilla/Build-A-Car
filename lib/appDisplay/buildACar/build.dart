@@ -309,7 +309,7 @@ class _Build extends State<Build> {
             : '#FFF35A',
       );
     } else {
-      return Text('Not Available');                                             /// shows error message
+      return const Text('Not Available');                                             /// shows error message
     }
   }
 }
