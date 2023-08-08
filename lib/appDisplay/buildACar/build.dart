@@ -1,16 +1,13 @@
 /// @author Leila Martinez
 /// @author Christian Revilla
 
-
 import 'package:buildacar/appDisplay/main.dart';
 import 'package:buildacar/appDisplay/buildACar/painter.dart';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Results.dart';
 import 'colors.dart';
-
 
 /**
  * Class shows the build your own car page to the user.
@@ -29,8 +26,7 @@ class Build extends StatefulWidget{
   State<Build> createState() => _Build();
 }
 
-
-
+/// Class Build which builds all List that is used in app
 class _Build extends State<Build> {
 
   String colorCode = '';
@@ -82,7 +78,6 @@ class _Build extends State<Build> {
     widget.user.setCarType = widget.model;
     final DateTime selectedDate = widget.user.getDate;
     update();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Build Your Own Car"),
@@ -93,23 +88,20 @@ class _Build extends State<Build> {
           maintainBottomViewPadding: false,
           child: ListView(
             children: [
-
               Column(
               children: [
-                Container(
+                SizedBox(
                     height: 130,
                     width: 400,
                     child: modelPaint()
                   ),
                 const Text("Choose your color: ",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                Container(
-                      child: SizedBox(
-                        height: 80,
-                        child: SVGColorSlider(
-                          onColorSelected: (color) => setState(() => colorCode = color),
-                        ),
-                      )
+                SizedBox(
+                  height: 80,
+                  child: SVGColorSlider(
+                    onColorSelected: (color) => setState(() => colorCode = color),
+                  ),
                 ),
                 const Divider(height: 5, color: Colors.grey,),
                 Center(
@@ -118,7 +110,7 @@ class _Build extends State<Build> {
                       const Text("Year:    ",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
                       dropDown(carsListDB.showAvailableYears(widget.model), "year"),
-                      SizedBox(width: 50,),
+                      const SizedBox(width: 50,),
                       Text(yearSelected, overflow: TextOverflow.fade,)
                     ],
                   ),
@@ -129,7 +121,7 @@ class _Build extends State<Build> {
                     const Text("Make:   ",
                       style: TextStyle(fontWeight: FontWeight.bold, ),),
                     dropDown(makesAvailable, "make"),
-                    SizedBox(width: 50,),
+                    const SizedBox(width: 50,),
                     Text(makeSelected)
                   ],
                 ),
@@ -139,7 +131,7 @@ class _Build extends State<Build> {
                     const Text("Model:  ",
                       style: TextStyle(fontWeight: FontWeight.bold, ),),
                     dropDown(modelsAvailable, "model"),
-                    SizedBox(width: 50,),
+                    const SizedBox(width: 50,),
                     Text(modelSelected)
                   ],
                 ),
@@ -149,7 +141,7 @@ class _Build extends State<Build> {
                     const Text("Doors:   ",
                       style: TextStyle(fontWeight: FontWeight.bold, ),),
                     dropDown(doorsAvailable, "doors"),
-                    SizedBox(width: 50,),
+                    const SizedBox(width: 50,),
                     Text(doorsSelected)
                   ],
                 ),
@@ -159,7 +151,7 @@ class _Build extends State<Build> {
                     const Text("Drive:    ",
                       style: TextStyle(fontWeight: FontWeight.bold, ),),
                     dropDown(driveAvailable, "drive"),
-                    SizedBox(width: 50,),
+                    const SizedBox(width: 50,),
                     Text(driveSelected)
                   ],
                 ),
@@ -173,12 +165,12 @@ class _Build extends State<Build> {
                     dropDown(fuelAvailable, "fuel"),
                   ],
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text(fuelSelected, overflow: TextOverflow.ellipsis, softWrap: false,),
                 const Divider(height: 5, color: Colors.grey,),
                 const Divider(height: 10, color: Colors.white,),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     height: 50,
                     width: 150,
                     child: ElevatedButton(
@@ -188,7 +180,7 @@ class _Build extends State<Build> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => Results(widget.user)));
                       },
-                      child: Text('Show Results'),
+                      child: const Text('Show Results'),
                     ),
                   ),
                 )
@@ -209,8 +201,6 @@ class _Build extends State<Build> {
   Widget dropDown(List<String> list, String selectingOption) {
     list.add("Select Option...");
     String dropdownValue = list.last;
-
-
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
@@ -256,7 +246,6 @@ class _Build extends State<Build> {
    * @return Widget - returns svg picture of the model the user selected.
    */
   Widget modelPaint () {
-
     if(widget.model == 'familyCar') {
       return PainterCar(
         color: colorCode.isNotEmpty
@@ -303,7 +292,7 @@ class _Build extends State<Build> {
             : '#FFF35A',
       );
     } else {
-      return Text('Not Available');
+      return const Text('Not Available');
     }
   }
 }

@@ -1,3 +1,5 @@
+/// @author Leila Martinez
+/// @author Christian Revilla
 
 import 'dart:core';
 import 'package:buildacar/appDisplay/buildACar/userChoices.dart';
@@ -5,7 +7,7 @@ import 'package:buildacar/appDisplay/main.dart';
 
 import '../../serverCalls/car.dart';
 
-/// Contains lists with a certain number of matches
+/// Class that contains lists with a certain number of matches
 /// of the user choices selected.
 class CarMatches {
 
@@ -34,6 +36,9 @@ class CarMatches {
     helperMatch(threeMatches);
   }
 
+  /** Helper function to prevent duplicates from entering the List
+   * @param List<Car> list representing the global List for user
+   */
   helperMatch(List<Car> list){
     for(Car car in list){
       if(!fullMatchesList.contains(car)){
@@ -63,7 +68,6 @@ class CarMatches {
   }
 
   forMoreMatches(String drive, String doors, String fuel, String color){
-
     for(Car car in threeMatches){
       int matchingCount = 3;
       if(car.getDrive == drive){
@@ -78,7 +82,6 @@ class CarMatches {
       if(car.getColor == color){
         matchingCount += 1;
       }
-
       if(matchingCount == 4){
         fourMatches.add(car);
       } else if(matchingCount == 5){

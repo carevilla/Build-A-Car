@@ -1,29 +1,31 @@
+/// @author Christian Revilla
+/// @author Leila Martinez
+/// Main file to run app
+
 import 'package:buildacar/appDisplay/accountPage/account.dart';
-import 'package:buildacar/appDisplay/buildACar/choose_model.dart';
 import 'package:buildacar/dataAvailable/cars_saveddata.dart';
 import 'package:buildacar/dataAvailable/userData.dart';
 import 'package:buildacar/serverCalls/car_query_call.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:buildacar/firebase_options.dart';
-import 'package:provider/provider.dart';
 import 'BuiltCars.dart';
 import 'Favorites.dart';
 import 'HomePage.dart';
 import 'accountPage/utils.dart';
 
-
 final carsListDB = CarListDB();
 final userDB = UserDB();
 
-
+/** Function that initialize all configurations our app holds
+ * firebase, MOBX, Global List
+ * @return Future<void>
+ */
 Future<void> main() async {
   createList();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
-
-
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -31,6 +33,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  /// Stateless Build for main
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,31 +44,45 @@ class MyApp extends StatelessWidget {
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         //useMaterial3: true,
       ),
-      home: StartPage(),
+      home: const StartPage(),
     );
   }
 }
 
 class StartPage extends StatefulWidget{
+  const StartPage({super.key});
+
 
   @override
   State<StatefulWidget> createState() => _StartPage();
 }
 
+/** Start Page contains a Drawer or side menu where the user can open up
+ * Favorites List, BuiltCar List, or the homepage
+ */
 class _StartPage extends State<StartPage> {
   int _selectedIndex = 0;
   List<Widget> pageWidgets = [
-    MyHomePage(),
+    const MyHomePage(),
     Favorites(),
     BuiltCars(),
   ];
 
+  /** Function to set the correct state that shoudl be displayed
+   * @return void
+   * @param int index to know which widget to display
+   */
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  /** Build function that displays once app starts,
+   * Defualt state it shows app bar, homepage layout, and side menu
+   * @return Widget displaying current state of homepage
+   * @param BuildContext context
+   */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +97,7 @@ class _StartPage extends State<StartPage> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.person,
                         color: Colors.black,
                         size: 36,
@@ -90,21 +107,6 @@ class _StartPage extends State<StartPage> {
                             MaterialPageRoute(builder: (context) => Account()));
                       },
                     ),
-/*
-<<<<<<< HEAD
-                    IconButton(
-                      icon: const Icon(
-                        Icons.car_crash_outlined,
-                        color: Colors.black,
-                        size: 36,
-                      ),
-                      onPressed: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => ChooseModel()));
-                      },
-                    ),
-=======
->>>>>>> 15513df5acdf810e37341004e7004785f2a9f450 */
                   ],
                 )
             )
